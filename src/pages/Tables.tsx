@@ -44,9 +44,9 @@ const Tables = () => {
          <Button className="bg-black text-white p-3 dark:bg-white dark:text-black" onClick={showPopup}>
           Create New Opportunities
          </Button>
-         {/* <Button className="bg-black text-white p-3 dark:bg-white dark:text-black" onClick={show}>
-          abcd
-         </Button> */}
+         <Button className="bg-black text-white p-3 dark:bg-white dark:text-black" onClick={show}>
+          questionnaire
+         </Button>
         </div>
       </nav>
       </div>
@@ -59,7 +59,7 @@ const Tables = () => {
 
 
       {isPopupVisible && <Popup onClose={hidePopup} />}
-      {/* {isPopup &&   <PopupForm onClose={hide}/>} */}
+      {isPopup &&   <PopupForm onClose={hide}/>}
     </>
   );
 };

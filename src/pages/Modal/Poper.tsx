@@ -25,8 +25,8 @@ const PopupForm = ({ onClose }) => {
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 overflow-auto">
-      <div className="bg-white dark:bg-boxdark p-6 rounded-lg w-full max-w-6xl relative" style={{ maxHeight: '90vh', height: '70%' }}>
-        <div className="mb-4 flex justify-between items-center">
+      <div className="bg-white dark:bg-boxdark  rounded-lg w-full max-w-6xl relative" style={{ maxHeight: '90vh', height: '80%' }}>
+        <div className="mb-4 flex justify-between items-center bg-black text-white p-4">
           <div>
             <h1 className="text-2xl font-semibold">Questionnaire Information</h1>
             <h5>Selected Opportunity: STS MARINE PTE LTD QMS 2024</h5>
@@ -39,7 +39,7 @@ const PopupForm = ({ onClose }) => {
           </button>
         </div>
 
-        <div className="flex mt-4 overflow-auto" style={{ maxHeight: 'calc(100% - 80px)' }}>
+        <div className="flex mt-6 overflow-auto text-black" style={{ maxHeight: 'calc(100% - 80px)',padding:"30px" }}>
           {/* General Information */}
           <div className="w-1/10 flex-none flex flex-col pr-4 mb-4 pb-4">
             <h2 className="text-lg font-semibold">General Information</h2>
@@ -51,7 +51,7 @@ const PopupForm = ({ onClose }) => {
                   name="questionnaireNo"
                   value={formData.questionnaireNo}
                   onChange={handleChange}
-                  className="mt-1 block w-full bg-gray-200 border-gray-300 rounded-md shadow-sm focus:border-yellow-500 focus:ring focus:ring-yellow-500 focus:ring-opacity-50 sm:text-sm p-2"
+                  className="mt-1 block w-full bg-gray-200  bg-gray border-gray-300 rounded-md shadow-sm focus:border-yellow-500 focus:ring focus:ring-yellow-500 focus:ring-opacity-50 sm:text-sm p-2"
                   readOnly
                 />
               </div>
@@ -62,7 +62,7 @@ const PopupForm = ({ onClose }) => {
                   name="selectedSites"
                   value={formData.selectedSites}
                   onChange={handleChange}
-                  className="mt-1 block w-full bg-gray-200 border-gray-300 rounded-md shadow-sm focus:border-yellow-500 focus:ring focus:ring-yellow-500 focus:ring-opacity-50 sm:text-sm p-2"
+                  className="mt-1 block w-full bg-gray-200 bg-gray border-gray-300 rounded-md shadow-sm focus:border-yellow-500 focus:ring focus:ring-yellow-500 focus:ring-opacity-50 sm:text-sm p-2"
                 >
                   <option value="" disabled>Select a Site</option>
                   <option value="site1">Site 1</option>
@@ -85,7 +85,7 @@ const PopupForm = ({ onClose }) => {
                   name="clientName"
                   value={formData.clientName}
                   onChange={handleChange}
-                  className="mt-1 block w-full bg-gray-200 border-gray-300 rounded-md shadow-sm focus:border-yellow-500 focus:ring focus:ring-yellow-500 focus:ring-opacity-50 sm:text-sm p-2"
+                  className="mt-1 block w-full bg-gray-200  bg-gray border-gray-300 rounded-md shadow-sm focus:border-yellow-500 focus:ring focus:ring-yellow-500 focus:ring-opacity-50 sm:text-sm p-2"
                 />
               </div>
               <div className="flex-1">
@@ -95,7 +95,7 @@ const PopupForm = ({ onClose }) => {
                   name="zone"
                   value={formData.zone}
                   onChange={handleChange}
-                  className="mt-1 block w-full bg-gray-200 border-gray-300 rounded-md shadow-sm focus:border-yellow-500 focus:ring focus:ring-yellow-500 focus:ring-opacity-50 sm:text-sm p-2"
+                  className="mt-1 block w-full bg-gray-200 bg-gray border-gray-300 bg-gray rounded-md shadow-sm focus:border-yellow-500 focus:ring focus:ring-yellow-500 focus:ring-opacity-50 sm:text-sm p-2"
                 >
                   <option value="" disabled>Select a Zone</option>
                   <option value="zone1">Zone 1</option>
@@ -112,7 +112,7 @@ const PopupForm = ({ onClose }) => {
                   name="certificationType"
                   value={formData.certificationType}
                   onChange={handleChange}
-                  className="mt-1 block w-full bg-gray-200 border-gray-300 rounded-md shadow-sm focus:border-yellow-500 focus:ring focus:ring-yellow-500 focus:ring-opacity-50 sm:text-sm p-2"
+                  className="mt-1 block w-full bg-gray-200  bg-gray border-gray-300 rounded-md shadow-sm focus:border-yellow-500 focus:ring focus:ring-yellow-500 focus:ring-opacity-50 sm:text-sm p-2"
                 />
               </div>
               <div className="flex-1">
@@ -122,7 +122,7 @@ const PopupForm = ({ onClose }) => {
                   name="surveillanceType"
                   value={formData.surveillanceType}
                   onChange={handleChange}
-                  className="mt-1 block w-full bg-gray-200 border-gray-300 rounded-md shadow-sm focus:border-yellow-500 focus:ring focus:ring-yellow-500 focus:ring-opacity-50 sm:text-sm p-2"
+                  className="mt-1 block w-full bg-gray-200 bg-gray border-gray-300 rounded-md shadow-sm focus:border-yellow-500 focus:ring focus:ring-yellow-500 focus:ring-opacity-50 sm:text-sm p-2"
                 />
               </div>
               <div className="flex-1">
@@ -132,7 +132,7 @@ const PopupForm = ({ onClose }) => {
                   name="readinessDate"
                   value={formData.readinessDate}
                   onChange={handleChange}
-                  className="mt-1 block w-full bg-gray-200 border-gray-300 rounded-md shadow-sm focus:border-yellow-500 focus:ring focus:ring-yellow-500 focus:ring-opacity-50 sm:text-sm p-2"
+                  className="mt-1 block w-full bg-gray-200 bg-gray border-gray-300 rounded-md shadow-sm focus:border-yellow-500 focus:ring focus:ring-yellow-500 focus:ring-opacity-50 sm:text-sm p-2"
                 />
               </div>
             </div>
@@ -144,10 +144,15 @@ const PopupForm = ({ onClose }) => {
                 value={formData.selectedSitesText}
                 onChange={handleChange}
                 rows={4}
-                className="mt-1 block w-full bg-gray-200 border-gray-300 rounded-md shadow-sm focus:border-yellow-500 focus:ring focus:ring-yellow-500 focus:ring-opacity-50 sm:text-sm p-2"
+                className="mt-1 block w-full bg-gray-200 bg-gray border-gray-300 rounded-md shadow-sm focus:border-yellow-500 focus:ring focus:ring-yellow-500 focus:ring-opacity-50 sm:text-sm p-2"
               />
             </div>
           </div>
+        </div>
+        <div>
+        <button className="border-2 border-black px-4 py-2 rounded-md " style={{marginLeft:'30px'}}>
+  Proceed to Fill Std Info
+</button>
         </div>
 
         <div className="absolute bottom-0 left-0 w-full p-4 bg-white flex justify-end space-x-4">
@@ -159,7 +164,7 @@ const PopupForm = ({ onClose }) => {
           </button>
           <button
             onClick={handleSubmit}
-            className="bg-yellow-500 text-white px-4 py-2 rounded-md hover:bg-yellow-600 transition-colors"
+            className="bg-black text-white px-4 py-2 rounded-md hover:bg-gray-600 transition-colors"
           >
             Save Changes
           </button>

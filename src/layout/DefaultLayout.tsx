@@ -5,6 +5,7 @@ import Sidebar from '../components/Sidebar/index';
 const DefaultLayout: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const isSignInPage = location.pathname === '/';
+  const isAdmin = location.pathname === '/admin/signin'
 console.log(isSignInPage)
 
   return (
@@ -12,13 +13,13 @@ console.log(isSignInPage)
       {/* <!-- ===== Page Wrapper Start ===== --> */}
       <div className="flex h-screen overflow-hidden">
         {/* <!-- ===== Sidebar Start ===== --> */}
-       {!isSignInPage && <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />}
+       {!isSignInPage && !isAdmin && <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />}
         {/* <!-- ===== Sidebar End ===== --> */}
 
         {/* <!-- ===== Content Area Start ===== --> */}
         <div className="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden">
           {/* <!-- ===== Header Start ===== --> */}
-          { !isSignInPage && <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />}
+          { !isSignInPage && !isAdmin && <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />}
           {/* <!-- ===== Header End ===== --> */}
 
           {/* <!-- ===== Main Content Start ===== --> */}
