@@ -12,6 +12,8 @@ const Popup = ({ onClose }) => {
     details: '',
   });
 
+  const [errors, setErrors] = useState({});
+
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormData((prevData) => ({
@@ -20,25 +22,41 @@ const Popup = ({ onClose }) => {
     }));
   };
 
+  const validate = () => {
+    let tempErrors = {};
+    if (!formData.enquiryLead) tempErrors.enquiryLead = "Enquiry lead is required";
+    if (!formData.clientName) tempErrors.clientName = "Client name is required";
+    if (!formData.title) tempErrors.title = "Title is required";
+    if (!formData.closureDate) tempErrors.closureDate = "Expected closure date is required";
+    if (!formData.quotationAmount) tempErrors.quotationAmount = "Estimated quotation amount is required";
+    if (formData.quotationAmount && formData.quotationAmount <= 0) tempErrors.quotationAmount = "Estimated quotation amount must be positive";
+    if (!formData.details) tempErrors.details = "Details are required";
+    setErrors(tempErrors);
+    console.log(tempErrors,"  ",formData )
+    return Object.keys(tempErrors).length === 0;
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
-    onClose();
+    if (validate()) {
+      console.log(formData);
+      onClose();
+    }
   };
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 z-50 ">
-      <div className="bg-white  rounded shadow-lg w-full max-w-3xl">
-      <div className="bg-black p-6 rounded-t  container-fluid">
+    <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 z-50">
+      <div className="bg-white rounded shadow-lg w-full max-w-3xl">
+        <div className="bg-black p-6 rounded-t container-fluid">
           <div className="flex justify-between items-center">
-            <h2 className="text-lg font-semibold text-white">Create New Opporunities</h2>
+            <h2 className="text-lg font-semibold text-white">Create New Opportunities</h2>
             <button onClick={onClose} className="text-white">X</button>
-            </div>
-            </div>
-        <form onSubmit={handleSubmit} className='p-6 dark:bg-boxdark '>
-          <div className="grid  grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+          </div>
+        </div>
+        <form onSubmit={handleSubmit} className="p-6 dark:bg-boxdark">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
             <div className="flex flex-col">
-              <label className="mb-2 text-sm  font-medium">Select Enquiry Lead</label>
+              <label className="mb-2 text-sm font-medium">Select Enquiry Lead</label>
               <select
                 name="enquiryLead"
                 value={formData.enquiryLead}
@@ -49,6 +67,7 @@ const Popup = ({ onClose }) => {
                 <option value="lead1">Lead 1</option>
                 <option value="lead2">Lead 2</option>
               </select>
+              {errors.enquiryLead && <p className="text-red-500 text-xs mt-1">{errors.enquiryLead}</p>}
             </div>
             <div className="flex flex-col">
               <label className="mb-2 text-sm font-medium">Client Name</label>
@@ -59,6 +78,7 @@ const Popup = ({ onClose }) => {
                 onChange={handleChange}
                 className="border p-2 rounded text-sm"
               />
+              {errors.clientName && <p className="text-red-500 text-xs mt-1">{errors.clientName}</p>}
             </div>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
@@ -71,6 +91,7 @@ const Popup = ({ onClose }) => {
                 onChange={handleChange}
                 className="border p-2 rounded text-sm"
               />
+              {errors.title && <p className="text-red-500 text-xs mt-1">{errors.title}</p>}
             </div>
             <div className="flex flex-col">
               <label className="mb-2 text-sm font-medium">Status</label>
@@ -96,6 +117,7 @@ const Popup = ({ onClose }) => {
                 onChange={handleChange}
                 className="border p-2 rounded text-sm"
               />
+              {errors.closureDate && <p className="text-red-500 text-xs mt-1">{errors.closureDate}</p>}
             </div>
             <div className="flex flex-col">
               <label className="mb-2 text-sm font-medium">Estimated Quotation Amount</label>
@@ -106,6 +128,7 @@ const Popup = ({ onClose }) => {
                 onChange={handleChange}
                 className="border p-2 rounded text-sm"
               />
+              {errors.quotationAmount && <p className="text-red-500 text-xs mt-1">{errors.quotationAmount}</p>}
             </div>
           </div>
           <div className="mb-4 flex items-center">
@@ -127,12 +150,13 @@ const Popup = ({ onClose }) => {
               className="border p-2 rounded w-full text-sm"
               rows="3"
             ></textarea>
+            {errors.details && <p className="text-red-500 text-xs mt-1">{errors.details}</p>}
           </div>
           <div className="flex justify-end">
             <button
               type="button"
               onClick={onClose}
-              className="bg-gray-500  px-4 py-2 rounded mr-2"
+              className="bg-gray-500 px-4 py-2 rounded mr-2"
             >
               Close
             </button>

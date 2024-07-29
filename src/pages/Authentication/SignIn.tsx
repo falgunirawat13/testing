@@ -27,7 +27,7 @@ const SignIn: React.FC = () => {
   };
 
   // Example login function
-  const login = (email, password) => {
+  const login = (email, password)=> {
     // Replace with actual login logic
     console.log('Logging in with:', { email, password });
 
