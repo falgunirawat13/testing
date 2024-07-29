@@ -1,11 +1,40 @@
-import Breadcrumb from '../components/Breadcrumbs/Breadcrumb';
+//import Breadcrumb from '../components/Breadcrumbs/Breadcrumb';
 import userThree from '../images/user/user-03.png';
-
+import { Button } from 'react-bootstrap';
+import PopupForm from './Modal/Poper';
+import { useState } from 'react';
 const Settings = () => {
+
+  const [isPopup, setIsPopup] = useState(false);
+  const show=()=>{
+    setIsPopup(true)
+
+  }
+
+  const hide=()=>{
+    setIsPopup(false)
+
+  }
   return (
     <>
       <div className="mx-auto max-w-270">
-        <Breadcrumb pageName="Settings" />
+        {/* <Breadcrumb pageName="Settings" /> */}
+        <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+      <h2 className="text-title-md2 font-semibold text-black dark:text-white">
+        Tables
+      </h2>
+     
+
+      <nav>
+        <div className="flex items-center gap-2">
+         <Button className="bg-black text-white p-3 dark:bg-white dark:text-black" onClick={show}>
+          questionnaire
+         </Button>
+        </div>
+      </nav>
+      </div>
+
+      {isPopup &&   <PopupForm onClose={hide}/>}
 
         <div className="grid grid-cols-5 gap-8">
           <div className="col-span-5 xl:col-span-3">
@@ -304,6 +333,8 @@ const Settings = () => {
           </div>
         </div>
       </div>
+
+     
     </>
   );
 };

@@ -6,29 +6,22 @@ import { Button } from 'react-bootstrap';
 
 import { useState } from 'react';
 import Popup from './Modal/Popup';
-import PopupForm from './Modal/Poper';
+// import PopupForm from './Modal/Poper';
 const Tables = () => {
 
     const [isPopupVisible, setIsPopupVisible] = useState(false);
-    const [isPopup, setIsPopup] = useState(false);
+   
 
   const showPopup = () => {
     setIsPopupVisible(true);
     
   };
 
-  const show=()=>{
-    setIsPopup(true)
-
-  }
+ 
   const hidePopup = () => {
     setIsPopupVisible(false);
    
   };
-  const hide=()=>{
-    setIsPopup(false)
-
-  }
 
   return (
     <>
@@ -44,9 +37,6 @@ const Tables = () => {
          <Button className="bg-black text-white p-3 dark:bg-white dark:text-black" onClick={showPopup}>
           Create New Opportunities
          </Button>
-         <Button className="bg-black text-white p-3 dark:bg-white dark:text-black" onClick={show}>
-          questionnaire
-         </Button>
         </div>
       </nav>
       </div>
@@ -59,7 +49,7 @@ const Tables = () => {
 
 
       {isPopupVisible && <Popup onClose={hidePopup} />}
-      {isPopup &&   <PopupForm onClose={hide}/>}
+      
     </>
   );
 };
