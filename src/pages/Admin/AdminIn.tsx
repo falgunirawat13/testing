@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import  { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 function AdminIn() {
   // State for managing form input and error messages
@@ -88,7 +88,7 @@ function AdminIn() {
               <input
                 type="submit"
                 value="Sign In"
-                className="w-full cursor-pointer rounded-lg border border-primary bg-primary p-4 text-white transition hover:bg-opacity-90"
+                className="w-full cursor-pointer rounded-lg border border-primary bg-black p-4 text-white transition hover:bg-opacity-90"
               />
             </div>
           </form>
