@@ -4,8 +4,8 @@ import Sidebar from '../components/Sidebar/index';
 
 const DefaultLayout: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const isSignInPage = location.pathname === '/';
-  const isAdmin = location.pathname === '/admin/signin'
+  const isSignInPage = location.pathname === '/auth/signin';
+  const isAdmin = location.pathname === '/'
 console.log(isSignInPage)
 
   return (
