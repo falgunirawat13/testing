@@ -148,7 +148,7 @@ function App() {
           path="/admin/signin"
           element={
             <>
-              {/* <PageTitle title="Signup | TailAdmin - Tailwind CSS Admin Dashboard Template" /> */}
+              <PageTitle title="Signup | TailAdmin - Tailwind CSS Admin Dashboard Template" />
              <AdminIn/>
             </>
           }
