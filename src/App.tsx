@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
-
+import 'bootstrap/dist/css/bootstrap.min.css';
 import Loader from './common/Loader';
 import PageTitle from './components/PageTitle';
 import SignIn from './pages/Authentication/SignIn';
@@ -17,6 +17,7 @@ import Alerts from './pages/UiElements/Alerts';
 import Buttons from './pages/UiElements/Buttons';
 import DefaultLayout from './layout/DefaultLayout';
 import AdminIn   from './pages/Admin/AdminIn';
+import Lead from './pages/Lead/Lead';
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
   const { pathname } = useLocation();
@@ -153,6 +154,16 @@ function App() {
             </>
           }
         />
+        <Route
+        path="/business/lead"
+        element={
+          <>
+            <PageTitle title="Signup | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+            <Lead/>
+          </>
+        }
+        />
+
 
       </Routes>
     </DefaultLayout>

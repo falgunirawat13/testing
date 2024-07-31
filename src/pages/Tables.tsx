@@ -1,55 +1,35 @@
-// import Breadcrumb from '../components/Breadcrumbs/Breadcrumb';
+import React, { useState } from 'react';
 import TableOne from '../components/Tables/TableOne';
-import TableThree from '../components/Tables/TableThree';
-import TableTwo from '../components/Tables/TableTwo';
-import { Button } from 'react-bootstrap';
-
-import { useState } from 'react';
+import HeaderWithButton from '../components/Header/HeaderWithButton';
 import Popup from './Modal/Popup';
-// import PopupForm from './Modal/Poper';
-const Tables = () => {
 
-    const [isPopupVisible, setIsPopupVisible] = useState(false);
-   
+const Tables = () => {
+  const [isPopupVisible, setIsPopupVisible] = useState(false);
 
   const showPopup = () => {
     setIsPopupVisible(true);
-    
   };
 
- 
   const hidePopup = () => {
     setIsPopupVisible(false);
-   
   };
 
   return (
     <>
-      {/* <Breadcrumb pageName="Tables" /> */}
-      <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-      <h2 className="text-title-md2 font-semibold text-black dark:text-white">
-        Tables
-      </h2>
-     
-
-      <nav>
-        <div className="flex items-center gap-2">
-         <Button className="bg-black text-white p-3 dark:bg-white dark:text-black" onClick={showPopup}>
-          Create New Opportunities
-         </Button>
-        </div>
-      </nav>
-      </div>
+      {/* Use the reusable HeaderWithButton component */}
+      <HeaderWithButton
+        title="Tables"
+        buttonLabel="Create New User"
+        onButtonClick={showPopup}
+      />
 
       <div className="flex flex-col gap-10">
         <TableOne />
-        <TableTwo />
-        <TableThree />
+        {/* <TableTwo />
+        <TableThree /> */}
       </div>
 
-
       {isPopupVisible && <Popup onClose={hidePopup} />}
-      
     </>
   );
 };

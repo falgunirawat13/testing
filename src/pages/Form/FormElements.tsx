@@ -1,11 +1,10 @@
 import { Form, Row, Col, Button } from 'react-bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
 
 const FormElements = () => {
   return (
     <>
-      <Breadcrumb pageName="Form Elements" />
+      <Breadcrumb pageName="User Form" />
 
       <div className="rounded-sm border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
         <h4 className="mb-6 text-xl font-semibold text-black">
@@ -15,8 +14,8 @@ const FormElements = () => {
         <Form>
           <Row className="mb-3 ">
             <Form.Group as={Col} controlId="formUsername">
-              <Form.Label className='text-black dark:text-white fw-normal'>Username</Form.Label>
-              <Form.Control type="text" placeholder="Enter username" />
+              <Form.Label className='text-black dark:text-white fw-normal'>FirstName</Form.Label>
+              <Form.Control type="text" placeholder="Enter FirstName" />
             </Form.Group>
 
             <Form.Group as={Col} controlId="formLastName">

@@ -1,124 +1,131 @@
-import { BRAND } from '../../types/brand';
-import BrandOne from '../../images/brand/brand-01.svg';
-import BrandTwo from '../../images/brand/brand-02.svg';
-import BrandThree from '../../images/brand/brand-03.svg';
-import BrandFour from '../../images/brand/brand-04.svg';
-import BrandFive from '../../images/brand/brand-05.svg';
-
-const brandData: BRAND[] = [
+import  { useState, useEffect } from 'react';
+import Table from 'react-bootstrap/Table';
+import Button from 'react-bootstrap/Button';
+import FormControl from 'react-bootstrap/FormControl';
+import { MdOutlineEdit, MdDelete } from 'react-icons/md';
+import PaginationComponent from '../Pagination/Pagination';
+const userData = [
   {
-    logo: BrandOne,
-    name: 'Google',
-    visitors: 3.5,
-    revenues: '5,768',
-    sales: 590,
-    conversion: 4.8,
+    name: 'Otto Clay',
+    email: 'otto@example.com',
+    contact: '123-456-7890',
+    address: 'Ap #897-1459 Quam Avenue',
+    roles: 'Admin',
   },
   {
-    logo: BrandTwo,
-    name: 'Twitter',
-    visitors: 2.2,
-    revenues: '4,635',
-    sales: 467,
-    conversion: 4.3,
+    name: 'Connor Johnston',
+    email: 'connor@example.com',
+    contact: '098-765-4321',
+    address: 'Ap #370-4647 Dis Av.',
+    roles: 'User',
   },
   {
-    logo: BrandThree,
-    name: 'Github',
-    visitors: 2.1,
-    revenues: '4,290',
-    sales: 420,
-    conversion: 3.7,
+    name: 'Lacey Hess',
+    email: 'lacey@example.com',
+    contact: '456-789-0123',
+    address: 'Ap #365-8835 Integer St.',
+    roles: 'Editor',
+  },{
+    name: 'Otto Clay',
+    email: 'otto@example.com',
+    contact: '123-456-7890',
+    address: 'Ap #897-1459 Quam Avenue',
+    roles: 'Admin',
   },
   {
-    logo: BrandFour,
-    name: 'Vimeo',
-    visitors: 1.5,
-    revenues: '3,580',
-    sales: 389,
-    conversion: 2.5,
+    name: 'Connor Johnston',
+    email: 'connor@example.com',
+    contact: '098-765-4321',
+    address: 'Ap #370-4647 Dis Av.',
+    roles: 'User',
   },
   {
-    logo: BrandFive,
-    name: 'Facebook',
-    visitors: 3.5,
-    revenues: '6,768',
-    sales: 390,
-    conversion: 4.2,
-  },
+    name: 'Lacey Hess',
+    email: 'lacey@example.com',
+    contact: '456-789-0123',
+    address: 'Ap #365-8835 Integer St.',
+    roles: 'Editor',
+  }
+  // Add more data as needed
 ];
 
 const TableOne = () => {
+  const [searchTerm, setSearchTerm] = useState('');
+  const [filteredUsers, setFilteredUsers] = useState(userData);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [usersPerPage] = useState(5);
+
+  useEffect(() => {
+    setFilteredUsers(
+      userData.filter((user) =>
+        user.name.toLowerCase().includes(searchTerm.toLowerCase())
+      )
+    );
+    setCurrentPage(1);
+  }, [searchTerm]);
+
+  // Get current users
+  const indexOfLastUser = currentPage * usersPerPage;
+  const indexOfFirstUser = indexOfLastUser - usersPerPage;
+  const currentUsers = filteredUsers.slice(indexOfFirstUser, indexOfLastUser);
+
+  // Change page
+  const paginate = (pageNumber) => {setCurrentPage(pageNumber);}
+  const totalPages = Math.ceil(filteredUsers.length / usersPerPage);
+
   return (
-    <div className="rounded-sm border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
-      <h4 className="mb-6 text-xl font-semibold text-black dark:text-white">
-        Top Channels
-      </h4>
-
-      <div className="flex flex-col">
-        <div className="grid grid-cols-3 rounded-sm bg-gray-2 dark:bg-meta-4 sm:grid-cols-5">
-          <div className="p-2.5 xl:p-5">
-            <h5 className="text-sm font-medium uppercase xsm:text-base">
-              Source
-            </h5>
-          </div>
-          <div className="p-2.5 text-center xl:p-5">
-            <h5 className="text-sm font-medium uppercase xsm:text-base">
-              Visitors
-            </h5>
-          </div>
-          <div className="p-2.5 text-center xl:p-5">
-            <h5 className="text-sm font-medium uppercase xsm:text-base">
-              Revenues
-            </h5>
-          </div>
-          <div className="hidden p-2.5 text-center sm:block xl:p-5">
-            <h5 className="text-sm font-medium uppercase xsm:text-base">
-              Sales
-            </h5>
-          </div>
-          <div className="hidden p-2.5 text-center sm:block xl:p-5">
-            <h5 className="text-sm font-medium uppercase xsm:text-base">
-              Conversion
-            </h5>
-          </div>
-        </div>
-
-        {brandData.map((brand, key) => (
-          <div
-            className={`grid grid-cols-3 sm:grid-cols-5 ${
-              key === brandData.length - 1
-                ? ''
-                : 'border-b border-stroke dark:border-strokedark'
-            }`}
-            key={key}
-          >
-            <div className="flex items-center gap-3 p-2.5 xl:p-5">
-              <div className="flex-shrink-0">
-                <img src={brand.logo} alt="Brand" />
-              </div>
-              <p className="hidden text-black dark:text-white sm:block">
-                {brand.name}
-              </p>
-            </div>
-
-            <div className="flex items-center justify-center p-2.5 xl:p-5">
-              <p className="text-black dark:text-white">{brand.visitors}K</p>
-            </div>
-
-            <div className="flex items-center justify-center p-2.5 xl:p-5">
-              <p className="text-meta-3">${brand.revenues}</p>
-            </div>
-
-            <div className="hidden items-center justify-center p-2.5 sm:flex xl:p-5">
-              <p className="text-black dark:text-white">{brand.sales}</p>
-            </div>
-
-            <div className="hidden items-center justify-center p-2.5 sm:flex xl:p-5">
-              <p className="text-meta-5">{brand.conversion}%</p>
-            </div>
-          </div>
-        ))}
+    <div className="container my-4">
+      <h5 className="p-2 font-semibold text-black">User Details</h5>
+      <div className="d-flex mb-3">
+        <FormControl
+          placeholder="Search by Name"
+          className="p-3 me-2 flex-grow-1"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+        <Button variant="outline-secondary">Search</Button>
+      </div>
+      <Table responsive="md" hover className="table-striped table-borderless">
+        <thead className="thead-light">
+          <tr>
+            <th className="p-4">Name</th>
+            <th className="p-4">Email</th>
+            <th className="p-4">Contact No</th>
+            {/* <th className="p-4">Address</th> */}
+            <th className="p-4">Roles</th>
+            <th className="p-4">Edit</th>
+            <th className="p-4">Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          {currentUsers.map((user, key) => (
+            <tr key={key}>
+              <td className="p-4">{user.name}</td>
+              <td className="p-4">{user.email}</td>
+              <td className="p-4">{user.contact}</td>
+              {/* <td className="p-4">{user.address}</td> */}
+              <td className="p-4">{user.roles}</td>
+              <td className="p-4">
+                <Button variant="outline-dark" size="sm">
+                  <MdOutlineEdit />
+                </Button>
+              </td>
+              <td className="p-4">
+                <Button variant="outline-danger" size="sm">
+                  <MdDelete />
+                </Button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </Table>
+      <div className='d-flex justify-content-center '>
+      <PaginationComponent
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={paginate}  
+              
+      />
       </div>
     </div>
   );
