@@ -26,106 +26,94 @@ const LeadFormPopup = ({ onClose }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log('Form Data Submitted:', formData);
+    onClose();
   };
 
   return (
-    <div className="d-flex align-items-center justify-content-center position-fixed top-0 bottom-0 start-0 end-0 bg-dark bg-opacity-50 overflow-auto">
-      <div className="bg-white rounded-lg p-4 w-100 mw-100" style={{ maxWidth: '800px', maxHeight: '90vh', height: '80%' }}>
-        <div className="d-flex justify-content-between align-items-center mb-4">
-          <h1 className="h4 mb-0">Lead Information</h1>
-          <button onClick={onClose} className="btn btn-close"></button>
+    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 overflow-auto">
+      <div className="bg-white  w-full max-w-4xl relative" style={{ maxHeight: '90vh', height: 'auto' }}>
+        <div className="mb-2 flex justify-between items-center bg-black text-white p-4 ">
+          <h1 className="text-2xl font-semibold">Lead Information</h1>
+          <button onClick={onClose} className="px-2 py-1  hover:bg-gray-700 transition-colors">X</button>
         </div>
 
-        <form onSubmit={handleSubmit} className="overflow-auto" style={{ maxHeight: 'calc(100% - 80px)' }}>
-          <div className="row mb-3">
-            <div className="col-md-4">
-              <label htmlFor="leadFor" className="form-label">Lead For</label>
-              <select id="leadFor" name="leadFor" value={formData.leadFor} onChange={handleChange} className="form-select">
-                <option value="" disabled>Please select</option>
-                <option value="option1">Option 1</option>
-                <option value="option2">Option 2</option>
-                {/* Add more options as needed */}
-              </select>
+        <form onSubmit={handleSubmit} className="overflow-auto text-black p-4">
+          {/* Form Fields */}
+          <div className="w-full flex flex-col space-y-4">
+            <div className="grid grid-cols-3 gap-4">
+              <div>
+                <label htmlFor="leadFor" className="block text-sm font-medium ">Lead For</label>
+                <select id="leadFor" name="leadFor" value={formData.leadFor} onChange={handleChange} className="mt-1 block w-full bg-gray-200 border-gray-300 border   sm:text-sm p-2">
+                  <option value="" disabled>Please select</option>
+                  <option value="option1">Option 1</option>
+                  <option value="option2">Option 2</option>
+                </select>
+              </div>
+              <div>
+                <label htmlFor="sourceOfLead" className="block text-sm font-medium ">Source Of Lead</label>
+                <select id="sourceOfLead" name="sourceOfLead" value={formData.sourceOfLead} onChange={handleChange} className="mt-1 block w-full bg-gray-200 border-gray-300 border  sm:text-sm p-2">
+                  <option value="" disabled>Please select</option>
+                  <option value="source1">Source 1</option>
+                  <option value="source2">Source 2</option>
+                </select>
+              </div>
+              <div>
+                <label htmlFor="clientType" className="block text-sm font-medium ">Client Type</label>
+                <select id="clientType" name="clientType" value={formData.clientType} onChange={handleChange} className="mt-1 block w-full bg-gray-200 border-gray-300 border  sm:text-sm p-2">
+                  <option value="" disabled>Please select</option>
+                  <option value="type1">Type 1</option>
+                  <option value="type2">Type 2</option>
+                </select>
+              </div>
+              <div>
+                <label htmlFor="companyName" className="block text-sm font-medium ">Company Name</label>
+                <select id="companyName" name="companyName" value={formData.companyName} onChange={handleChange} className="mt-1 block w-full bg-gray-200 border-gray-300 border   sm:text-sm p-2">
+                  <option value="" disabled>Please select</option>
+                  <option value="company1">Company 1</option>
+                  <option value="company2">Company 2</option>
+                </select>
+              </div>
+              <div>
+                <label htmlFor="firstName" className="block text-sm font-medium ">First Name</label>
+                <input type="text" id="firstName" name="firstName" value={formData.firstName} onChange={handleChange} className="mt-1 block w-full bg-gray-200 border-gray-300 border  sm:text-sm p-2" />
+              </div>
+              <div>
+                <label htmlFor="lastName" className="block text-sm font-medium ">Last Name</label>
+                <input type="text" id="lastName" name="lastName" value={formData.lastName} onChange={handleChange} className="mt-1 block w-full bg-gray-200 border-gray-300 border   sm:text-sm p-2" />
+              </div>
+              <div>
+                <label htmlFor="phoneNo" className="block text-sm font-medium ">Phone No</label>
+                <input type="text" id="phoneNo" name="phoneNo" value={formData.phoneNo} onChange={handleChange} className="mt-1 block w-full bg-gray-200 border-gray-300 border  sm:text-sm p-2" />
+              </div>
+              <div>
+                <label htmlFor="mobileNo" className="block text-sm font-medium ">Mobile No</label>
+                <input type="text" id="mobileNo" name="mobileNo" value={formData.mobileNo} onChange={handleChange} className="mt-1 block w-full bg-gray-200 border-gray-300 border   sm:text-sm p-2" />
+              </div>
+              <div>
+                <label htmlFor="emailId" className="block text-sm font-medium ">Email Id</label>
+                <input type="email" id="emailId" name="emailId" value={formData.emailId} onChange={handleChange} className="mt-1 block w-full bg-gray-200 border-gray-300 border   sm:text-sm p-2" />
+              </div>
+              <div>
+                <label htmlFor="designation" className="block text-sm font-medium ">Designation</label>
+                <input type="text" id="designation" name="designation" value={formData.designation} onChange={handleChange} className="mt-1 block w-full bg-gray-200 border-gray-300 border  sm:text-sm p-2" />
+              </div>
+              <div>
+                <label htmlFor="location" className="block text-sm font-medium">Location</label>
+                <input type="text" id="location" name="location" value={formData.location} onChange={handleChange} className="mt-1 block w-full bg-gray-200 border-gray-300 border   sm:text-sm p-2" />
+              </div>
+              <div>
+                <label htmlFor="remarks" className="block text-sm font-medium ">Remarks</label>
+                <textarea id="remarks" name="remarks" value={formData.remarks} onChange={handleChange} rows={2} className="mt-1 block w-full bg-gray-200 border-gray-300 border  sm:text-sm p-2"></textarea>
+              </div>
+              <div>
+                <label htmlFor="estimatedQuotation" className="block text-sm font-medium ">Estimated Quotation</label>
+                <input type="text" id="estimatedQuotation" name="estimatedQuotation" value={formData.estimatedQuotation} onChange={handleChange} className="mt-1 block w-full bg-gray-200 border-gray-300 border   sm:text-sm p-2" />
+              </div>
             </div>
-            <div className="col-md-4">
-              <label htmlFor="sourceOfLead" className="form-label">Source Of Lead</label>
-              <select id="sourceOfLead" name="sourceOfLead" value={formData.sourceOfLead} onChange={handleChange} className="form-select">
-                <option value="" disabled>Please select</option>
-                <option value="source1">Source 1</option>
-                <option value="source2">Source 2</option>
-                {/* Add more options as needed */}
-              </select>
+            <div className="flex justify-end mt-4">
+              <button type="button" onClick={onClose} className="bg-red-500 text-white px-3 py-1 rounded-md hover:bg-red-700 transition-colors mr-2">Close</button>
+              <button type="submit" className="bg-black text-white px-3 py-1 rounded-md  transition-colors">Save changes</button>
             </div>
-            <div className="col-md-4">
-              <label htmlFor="clientType" className="form-label">Client Type</label>
-              <select id="clientType" name="clientType" value={formData.clientType} onChange={handleChange} className="form-select">
-                <option value="" disabled>Please select</option>
-                <option value="type1">Type 1</option>
-                <option value="type2">Type 2</option>
-                {/* Add more options as needed */}
-              </select>
-            </div>
-          </div>
-
-          <div className="row mb-3">
-            <div className="col-md-4">
-              <label htmlFor="companyName" className="form-label">Company Name</label>
-              <select id="companyName" name="companyName" value={formData.companyName} onChange={handleChange} className="form-select">
-                <option value="" disabled>Please select</option>
-                <option value="company1">Company 1</option>
-                <option value="company2">Company 2</option>
-                {/* Add more options as needed */}
-              </select>
-            </div>
-            <div className="col-md-4">
-              <label htmlFor="firstName" className="form-label">First Name</label>
-              <input type="text" id="firstName" name="firstName" value={formData.firstName} onChange={handleChange} className="form-control" />
-            </div>
-            <div className="col-md-4">
-              <label htmlFor="lastName" className="form-label">Last Name</label>
-              <input type="text" id="lastName" name="lastName" value={formData.lastName} onChange={handleChange} className="form-control" />
-            </div>
-          </div>
-
-          <div className="row mb-3">
-            <div className="col-md-4">
-              <label htmlFor="phoneNo" className="form-label">Phone No</label>
-              <input type="text" id="phoneNo" name="phoneNo" value={formData.phoneNo} onChange={handleChange} className="form-control" />
-            </div>
-            <div className="col-md-4">
-              <label htmlFor="mobileNo" className="form-label">Mobile No</label>
-              <input type="text" id="mobileNo" name="mobileNo" value={formData.mobileNo} onChange={handleChange} className="form-control" />
-            </div>
-            <div className="col-md-4">
-              <label htmlFor="emailId" className="form-label">Email Id</label>
-              <input type="email" id="emailId" name="emailId" value={formData.emailId} onChange={handleChange} className="form-control" />
-            </div>
-          </div>
-
-          <div className="row mb-3">
-            <div className="col-md-4">
-              <label htmlFor="designation" className="form-label">Designation</label>
-              <input type="text" id="designation" name="designation" value={formData.designation} onChange={handleChange} className="form-control" />
-            </div>
-            <div className="col-md-4">
-              <label htmlFor="location" className="form-label">Location</label>
-              <input type="text" id="location" name="location" value={formData.location} onChange={handleChange} className="form-control" />
-            </div>
-          </div>
-
-          <div className="mb-3">
-            <label htmlFor="remarks" className="form-label">Remarks</label>
-            <textarea id="remarks" name="remarks" value={formData.remarks} onChange={handleChange} className="form-control"></textarea>
-          </div>
-
-          <div className="mb-3">
-            <label htmlFor="estimatedQuotation" className="form-label">Estimated Quotation</label>
-            <input type="text" id="estimatedQuotation" name="estimatedQuotation" value={formData.estimatedQuotation} onChange={handleChange} className="form-control" />
-          </div>
-
-          <div className="d-flex justify-content-end">
-            <button type="button" onClick={onClose} className="btn btn-secondary me-2">Close</button>
-            <button type="submit" className="btn btn-primary">Save changes</button>
           </div>
         </form>
       </div>

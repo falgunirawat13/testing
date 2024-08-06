@@ -18,6 +18,7 @@ import Buttons from './pages/UiElements/Buttons';
 import DefaultLayout from './layout/DefaultLayout';
 import AdminIn   from './pages/Admin/AdminIn';
 import Lead from './pages/Lead/Lead';
+import Contract from './pages/contract/Contract';
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
   const { pathname } = useLocation();
@@ -163,7 +164,15 @@ function App() {
           </>
         }
         />
-
+      <Route
+        path="/business/contract"
+        element={
+          <>
+            <PageTitle title="Signup | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+            <Contract/>
+          </>
+        }
+        />
 
       </Routes>
     </DefaultLayout>

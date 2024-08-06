@@ -28,10 +28,14 @@ const FormElements = () => {
             <Form.Label className='text-black dark:text-white fw-normal'>Email</Form.Label>
             <Form.Control type="email" placeholder="Enter email" />
           </Form.Group>
+          <Form.Group className="mb-3" controlId="formpassword">
+            <Form.Label className='text-black dark:text-white fw-normal'>password</Form.Label>
+            <Form.Control type="password" placeholder="Enter password" />
+          </Form.Group>
 
           <Form.Group className="mb-3" controlId="formContactNumber">
             <Form.Label className='text-black dark:text-white fw-normal'>Contact Number</Form.Label>
-            <Form.Control type="tel" placeholder="Enter contact number" />
+            <Form.Control type="tel"  pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="Enter contact number" />
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="formAddress">
@@ -40,8 +44,23 @@ const FormElements = () => {
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="formRole">
+            <Form.Label className='text-black dark:text-white fw-normal'>Department</Form.Label>
+            <Form.Select>
+              <option value="">Select Department</option>
+              <option value="admin">Admin</option>
+              <option value="editor">Editor</option>
+              <option value="viewer">Viewer</option>
+            </Form.Select>
+          </Form.Group>
+
+          <Form.Group className="mb-3" controlId="formRole">
             <Form.Label className='text-black dark:text-white fw-normal'>Role</Form.Label>
-            <Form.Control type="text" placeholder="Enter role" />
+            <Form.Select>
+              <option value="">Select role</option>
+              <option value="admin">Admin</option>
+              <option value="editor">Editor</option>
+              <option value="viewer">Viewer</option>
+            </Form.Select>
           </Form.Group>
 
           <Button className="bg-black mb-4" type="submit">

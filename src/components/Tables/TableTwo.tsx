@@ -1,106 +1,50 @@
-import { Product } from '../../types/product';
-import ProductOne from '../../images/product/product-01.png';
-import ProductTwo from '../../images/product/product-02.png';
-import ProductThree from '../../images/product/product-03.png';
-import ProductFour from '../../images/product/product-04.png';
+// components/TableComponent.js
 
-const productData: Product[] = [
-  {
-    image: ProductOne,
-    name: 'Apple Watch Series 7',
-    category: 'Electronics',
-    price: 296,
-    sold: 22,
-    profit: 45,
-  },
-  {
-    image: ProductTwo,
-    name: 'Macbook Pro M1',
-    category: 'Electronics',
-    price: 546,
-    sold: 12,
-    profit: 125,
-  },
-  {
-    image: ProductThree,
-    name: 'Dell Inspiron 15',
-    category: 'Electronics',
-    price: 443,
-    sold: 64,
-    profit: 247,
-  },
-  {
-    image: ProductFour,
-    name: 'HP Probook 450',
-    category: 'Electronics',
-    price: 499,
-    sold: 72,
-    profit: 103,
-  },
-];
+import { Table, Dropdown } from 'react-bootstrap';
+import { BsThreeDotsVertical } from 'react-icons/bs';
 
-const TableTwo = () => {
+ 
+
+const TableComponent = ({ data, columns }) => {
   return (
-    <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
-      <div className="py-6 px-4 md:px-6 xl:px-7.5">
-        <h4 className="text-xl font-semibold text-black dark:text-white">
-          Top Products
-        </h4>
+    <div className='overflow-auto'>
+      <Table striped bordered hover>
+        <thead>
+          <tr>
+            {columns.map((col, index) => (
+              <th key={index}>{col}</th>
+            ))}
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {data.map((item, index) =>  (
+            
+            <tr key={index}>
+              {Object.values(item).map((value, idx) => (
+                <td key={idx}>{value}</td>
+              ))}
+              <td>
+                <Dropdown>
+                  <Dropdown.Toggle as="div">
+                    <BsThreeDotsVertical />
+                  </Dropdown.Toggle>
+                 
+                    <Dropdown.Menu className="dropdown-menu-custom">
+                       <Dropdown.Item href="#">Edit</Dropdown.Item>
+                       <Dropdown.Item href="#">Delete</Dropdown.Item>
+                       <Dropdown.Item href="#">View Details</Dropdown.Item>
+                    </Dropdown.Menu>
+                </Dropdown>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </Table>
       </div>
-
-      <div className="grid grid-cols-6 border-t border-stroke py-4.5 px-4 dark:border-strokedark sm:grid-cols-8 md:px-6 2xl:px-7.5">
-        <div className="col-span-3 flex items-center">
-          <p className="font-medium">Product Name</p>
-        </div>
-        <div className="col-span-2 hidden items-center sm:flex">
-          <p className="font-medium">Category</p>
-        </div>
-        <div className="col-span-1 flex items-center">
-          <p className="font-medium">Price</p>
-        </div>
-        <div className="col-span-1 flex items-center">
-          <p className="font-medium">Sold</p>
-        </div>
-        <div className="col-span-1 flex items-center">
-          <p className="font-medium">Profit</p>
-        </div>
-      </div>
-
-      {productData.map((product, key) => (
-        <div
-          className="grid grid-cols-6 border-t border-stroke py-4.5 px-4 dark:border-strokedark sm:grid-cols-8 md:px-6 2xl:px-7.5"
-          key={key}
-        >
-          <div className="col-span-3 flex items-center">
-            <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
-              <div className="h-12.5 w-15 rounded-md">
-                <img src={product.image} alt="Product" />
-              </div>
-              <p className="text-sm text-black dark:text-white">
-                {product.name}
-              </p>
-            </div>
-          </div>
-          <div className="col-span-2 hidden items-center sm:flex">
-            <p className="text-sm text-black dark:text-white">
-              {product.category}
-            </p>
-          </div>
-          <div className="col-span-1 flex items-center">
-            <p className="text-sm text-black dark:text-white">
-              ${product.price}
-            </p>
-          </div>
-          <div className="col-span-1 flex items-center">
-            <p className="text-sm text-black dark:text-white">{product.sold}</p>
-          </div>
-          <div className="col-span-1 flex items-center">
-            <p className="text-sm text-meta-3">${product.profit}</p>
-          </div>
-        </div>
-      ))}
-    </div>
   );
 };
 
-export default TableTwo;
+
+
+export default TableComponent;

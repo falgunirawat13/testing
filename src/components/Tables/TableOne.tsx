@@ -66,10 +66,12 @@ const TableOne = () => {
 
   // Get current users
   const indexOfLastUser = currentPage * usersPerPage;
+
   const indexOfFirstUser = indexOfLastUser - usersPerPage;
   const currentUsers = filteredUsers.slice(indexOfFirstUser, indexOfLastUser);
-
+  // console.log(indexOfFirstUser, " ",indexOfLastUser," ",currentUsers);
   // Change page
+
   const paginate = (pageNumber) => {setCurrentPage(pageNumber);}
   const totalPages = Math.ceil(filteredUsers.length / usersPerPage);
 
