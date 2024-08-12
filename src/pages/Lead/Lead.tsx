@@ -18,11 +18,11 @@ function Lead() {
         setShowPopup(false);
     };
 
-    const leadData = [
+    const [leadData,setLeadData] =   useState([
         { refNo: 'IBMS000503/22/112018', leadFor: 'Certification', companyName: 'NYCE COLOMBIA', source: 'Website Lead', leadType: 'Hot', leadStatus: 'Assigned', followUp: '', executive: 'Kriti Kalekar', createdDate: '27/02/2024', modifiedDate: '' },
         { refNo: 'IBMS000675/01/122018', leadFor: 'Certification', companyName: 'CIVIL GEOTECHNICA PVT LTD', source: 'Digital - Website', leadType: 'Warm', leadStatus: 'Not converted', followUp: '', executive: 'Aftab Alam', createdDate: '16/04/2019', modifiedDate: '' },
         // Add more rows as needed
-    ];
+    ]);
     const columns = [
         'Lead Ref No.',
         'Lead For',
@@ -35,6 +35,32 @@ function Lead() {
         'Created Date',
         'Modified Date'
       ];
+      const [searchTerm, setSearchTerm] = useState('');
+      const [filteredData, setFilteredData] = useState(leadData);
+    
+      const handleSearch = () => {
+        if (searchTerm.trim() === '') {
+          setFilteredData(leadData);
+        } else {
+          const filtered = leadData.filter(item =>
+            item.companyName.toLowerCase().includes(searchTerm.toLowerCase())
+          );
+          setFilteredData(filtered);
+        }
+      };
+    
+      const handleInputChange = (e) => {
+        setSearchTerm(e.target.value);
+        if (e.target.value.trim() === '') {
+          setFilteredData(leadData);
+        }
+      };
+      const handleDelete = (index) => {
+        const newData = leadData.filter((_, i) => i !== index);
+        console.log(newData)
+        setLeadData(newData);
+        setFilteredData(newData); // Update filtered data if search is active
+      };
 
        
 
@@ -53,11 +79,13 @@ function Lead() {
                     <FormControl
                         placeholder="Search by Name"
                         className="p-3 me-2 flex-grow-1"
+                        value={searchTerm}
+              onChange={handleInputChange}
                     />
-                    <Button variant="outline-secondary">Search</Button>
+                    <Button variant="outline-secondary" onClick={handleSearch}>Search</Button>
                 </div>
-                <TableComponent data={leadData}
-                columns={columns} />
+                <TableComponent data={filteredData}
+                columns={columns} onDelete={handleDelete}/>
             </div>
         </>
     );

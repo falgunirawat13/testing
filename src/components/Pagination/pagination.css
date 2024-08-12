@@ -1,7 +1,7 @@
 /* pagination.css */
 .custom-pagination .page-item.active .page-link {
-    background-color: black;
-    border-color: black;
+    background-color: #152238;
+    border-color: #152238;
     color: white;
   }
   
@@ -17,10 +17,11 @@
   }
   
   .custom-pagination .page-item.disabled .page-link {
-    background-color: #222;
-    border-color: #222;
+    background-color: #152238;
+    border-color: #152238;
     color: gray;
   }
+  
   
   .custom-pagination .page-link:first-child {
     color: black; /* Arrow color for previous */

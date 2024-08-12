@@ -1,11 +1,20 @@
-import  { useState } from 'react';
+import  { useState,useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 function AdminIn() {
   // State for managing form input and error messages
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate()
+    //check the token s present
+    useEffect(() => {
+      const token = localStorage.getItem('token');
+      if (token) {
+        // Redirect to dashboard if token exists
+        navigate('/dashboard');
+      }
+    }, [navigate]);
 
   // Handle form submission
   const handleSubmit = (e) => {
@@ -13,7 +22,7 @@ function AdminIn() {
 
     // Simple validation
     if (!email || !password) {
-      setError('Please fill in both fields.');
+      setError('Please fill the fields.');
       return;
     }
 
@@ -22,15 +31,38 @@ function AdminIn() {
   };
 
   // Example login function
-  const login = (email, password) => {
+  const login =async (email, password) => {
     // Replace with actual login logic
-    console.log('Logging in with:', { email, password });
+    // console.log('Logging in with:', { email, password });
 
-    // Clear the error if login succeeds
-    setError('');
-    navigate('/dashboard');
+    // // Clear the error if login succeeds
+    // setError('');
+    // navigate('/dashboard');
 
     // Handle successful login, e.g., redirect or update state
+
+    try{
+      const response = await axios.post('http://localhost:8000/api/auth/admin/login', { email, password });
+      setError('');
+      navigate('/dashboard');
+      console.log(response);
+      console.log(response.data.token)
+
+      //store in localstorage
+      localStorage.setItem('token', response.data.token);
+      localStorage.setItem('admin', 'admin');
+
+      
+    }catch(error){
+      if (error.response && error.response.status === 401) {
+        // 401 status code typically means unauthorized, such as wrong password
+        setError('Incorrect email or password. Please try again.');
+      } else {
+        // Handle other possible errors (e.g., network issues)
+        setError('An error occurred. Please try again later.');
+      }
+
+    }
   };
 
   return (
@@ -88,7 +120,8 @@ function AdminIn() {
               <input
                 type="submit"
                 value="Sign In"
-                className="w-full cursor-pointer rounded-lg border border-primary bg-black p-4 text-white transition hover:bg-opacity-90"
+                className="w-full cursor-pointer rounded-lg border border-primary  p-4 text-white transition hover:bg-opacity-90"
+                 style={{backgroundColor:'#152238'}}
               />
             </div>
           </form>

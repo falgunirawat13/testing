@@ -19,6 +19,9 @@ import DefaultLayout from './layout/DefaultLayout';
 import AdminIn   from './pages/Admin/AdminIn';
 import Lead from './pages/Lead/Lead';
 import Contract from './pages/contract/Contract';
+import Quotation from './pages/Quotation/Quotation'
+import QuotationForm from './pages/Quotation/QuotationForm';
+import EditUserTable from './pages/EditUserTable';
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
   const { pathname } = useLocation();
@@ -55,7 +58,7 @@ function App() {
           }
         />
         <Route
-          path="/profile"
+          path="/opportunity"
           element={
             <>
               <PageTitle title="Profile | TailAdmin - Tailwind CSS Admin Dashboard Template" />
@@ -170,6 +173,39 @@ function App() {
           <>
             <PageTitle title="Signup | TailAdmin - Tailwind CSS Admin Dashboard Template" />
             <Contract/>
+          </>
+        }
+        />
+        <Route
+        path="/business/Quotation"
+        element={
+          <>
+            <PageTitle title="Signup | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+            {/* <Contract/> */}
+            <Quotation/>
+          </>
+        }
+        />
+
+{/* /business/quotation/form */}
+<Route
+        path="/business/quotation/form"
+        element={
+          <>
+            <PageTitle title="Signup | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+            {/* <Contract/> */}
+             <QuotationForm/>
+          </>
+        }
+        />
+        
+        <Route
+        path="/tables/edit-user/:id"
+        element={
+          <>
+            <PageTitle title="Signup | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+            {/* <Contract/> */}
+             <EditUserTable/>
           </>
         }
         />

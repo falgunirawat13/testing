@@ -26,7 +26,7 @@ const Profile = () => {
     'Modified Date'
   ];
 
-  const leadData = [
+  const [leadData,setLeadData] =useState([
     {
       opportunitytitle: 'abc',
       clientname: 'Tata',
@@ -68,7 +68,36 @@ const Profile = () => {
       modifieddate: '01/10/2017'
     }
     // Add more rows as needed
-  ];
+  ]);
+
+
+  const [searchTerm, setSearchTerm] = useState('');
+    const [filteredData, setFilteredData] = useState(leadData);
+  
+    const handleSearch = () => {
+      if (searchTerm.trim() === '') {
+        setFilteredData(leadData);
+      } else {
+        const filtered = leadData.filter(item =>
+          item.clientname.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+        setFilteredData(filtered);
+      }
+    };
+  
+    const handleInputChange = (e) => {
+      setSearchTerm(e.target.value);
+      if (e.target.value.trim() === '') {
+        setFilteredData(leadData);
+      }
+    };
+  
+    const handleDelete = (index) => {
+      const newData = leadData.filter((a, i) => i !== index);
+      console.log(newData)
+      setLeadData(newData);
+      setFilteredData(newData); // Update filtered data if search is active
+    };
 
   return (
     <>
@@ -85,11 +114,13 @@ const Profile = () => {
                     <FormControl
                         placeholder="Search by Name"
                         className="p-3 me-2 flex-grow-1"
+                        value={searchTerm}
+              onChange={handleInputChange}
                     />
-                    <Button variant="outline-secondary">Search</Button>
+                    <Button variant="outline-secondary" onClick={handleSearch}>Search</Button>
                 </div>
-                <TableComponent data={leadData}
-                columns={columns} />
+                <TableComponent data={filteredData}
+                columns={columns} onDelete={handleDelete}/>
             </div>
 
      

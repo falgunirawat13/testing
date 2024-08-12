@@ -26,7 +26,7 @@ const PopupForm = ({ onClose }) => {
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 overflow-auto">
       <div className="bg-white dark:bg-boxdark  rounded-lg w-full max-w-6xl relative" style={{ maxHeight: '90vh', height: '80%' }}>
-        <div className="mb-4 flex justify-between items-center bg-black text-white p-4">
+        <div className="mb-4 flex justify-between items-center  text-white p-4" style={{ backgroundColor: '#152238' }}>
           <div>
             <h1 className="text-2xl font-semibold">Questionnaire Information</h1>
             <h5>Selected Opportunity: STS MARINE PTE LTD QMS 2024</h5>

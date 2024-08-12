@@ -9,7 +9,7 @@ const HeaderWithButton = ({ title, buttonLabel, onButtonClick }) => {
       <nav>
         <div className="flex items-center gap-2">
           <Button
-            className="bg-black text-white p-3 dark:bg-white dark:text-black"
+            className=" text-white p-3 dark:bg-white dark:text-black"  style={{ backgroundColor: '#152238' }}
             onClick={onButtonClick}
           >
             {buttonLabel}

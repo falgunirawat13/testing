@@ -1,11 +1,20 @@
-// components/TableComponent.js
-
 import { Table, Dropdown } from 'react-bootstrap';
 import { BsThreeDotsVertical } from 'react-icons/bs';
+import { useNavigate } from 'react-router-dom';
+const TableComponent = ({ data, columns,onDelete }) => {
+  const handleDelete = (index) => {
+    if (window.confirm('Are you sure you want to delete this row?')) {
+      onDelete(index);
+    }
+  };
+  const navigate=useNavigate();
 
+const handleEdit=()=>{
+  console.log("Edit")
+  navigate("/dashboard")
+}
  
 
-const TableComponent = ({ data, columns }) => {
   return (
     <div className='overflow-auto'>
       <Table striped bordered hover>
@@ -18,8 +27,7 @@ const TableComponent = ({ data, columns }) => {
           </tr>
         </thead>
         <tbody>
-          {data.map((item, index) =>  (
-            
+          {data.map((item, index) => (
             <tr key={index}>
               {Object.values(item).map((value, idx) => (
                 <td key={idx}>{value}</td>
@@ -29,22 +37,19 @@ const TableComponent = ({ data, columns }) => {
                   <Dropdown.Toggle as="div">
                     <BsThreeDotsVertical />
                   </Dropdown.Toggle>
-                 
-                    <Dropdown.Menu className="dropdown-menu-custom">
-                       <Dropdown.Item href="#">Edit</Dropdown.Item>
-                       <Dropdown.Item href="#">Delete</Dropdown.Item>
-                       <Dropdown.Item href="#">View Details</Dropdown.Item>
-                    </Dropdown.Menu>
+                  <Dropdown.Menu className="dropdown-menu-custom">
+                    <Dropdown.Item href="#" onClick={handleEdit}>Edit</Dropdown.Item>
+                    <Dropdown.Item onClick={() => handleDelete(index)}>Delete</Dropdown.Item>
+                    <Dropdown.Item href="#">View Details</Dropdown.Item>
+                  </Dropdown.Menu>
                 </Dropdown>
               </td>
             </tr>
           ))}
         </tbody>
       </Table>
-      </div>
+    </div>
   );
 };
-
-
 
 export default TableComponent;

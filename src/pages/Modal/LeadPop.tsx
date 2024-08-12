@@ -32,7 +32,7 @@ const LeadFormPopup = ({ onClose }) => {
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 overflow-auto">
       <div className="bg-white  w-full max-w-4xl relative" style={{ maxHeight: '90vh', height: 'auto' }}>
-        <div className="mb-2 flex justify-between items-center bg-black text-white p-4 ">
+        <div className="mb-2 flex justify-between items-center  text-white p-4 " style={{ backgroundColor: '#152238' }}>
           <h1 className="text-2xl font-semibold">Lead Information</h1>
           <button onClick={onClose} className="px-2 py-1  hover:bg-gray-700 transition-colors">X</button>
         </div>
