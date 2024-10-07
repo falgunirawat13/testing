@@ -5,22 +5,22 @@ import TableComponent from '../../components/Tables/TableTwo';
 import { useState } from 'react';
 
 function Contract() {
-    const columns = [
-      'File No.',
-      'Client Name',
-      'CR Status',
-      'Certification Type',
-      'Standards',
-      'Zone',
-      'Questionnaire Received Date',
-      'CR Prepared Date',
-      'CR Approved Date',
-      'CR Prepared By',
-      'CR Approved By',
-      'Quotation Submission Date',
-      'Order Received Date',
-      'CR Modified By'
-    ];
+  const columns = [
+    { header: 'File No.', accessor: 'fileNo' },
+    { header: 'Client Name', accessor: 'clientName' },
+    { header: 'CR Status', accessor: 'crStatus' },
+    { header: 'Certification Type', accessor: 'certificationType' },
+    { header: 'Standards', accessor: 'standards' },
+    { header: 'Zone', accessor: 'zone' },
+    { header: 'Questionnaire Received Date', accessor: 'questionnaireReceivedDate' },
+    { header: 'CR Prepared Date', accessor: 'crPreparedDate' },
+    { header: 'CR Approved Date', accessor: 'crApprovedDate' },
+    { header: 'CR Prepared By', accessor: 'crPreparedBy' },
+    { header: 'CR Approved By', accessor: 'crApprovedBy' },
+    { header: 'Quotation Submission Date', accessor: 'quotationSubmissionDate' },
+    { header: 'Order Received Date', accessor: 'orderReceivedDate' },
+    { header: 'CR Modified By', accessor: 'crModifiedBy' },
+  ];
   
     const [leadData, setLeadData] = useState([
       { 

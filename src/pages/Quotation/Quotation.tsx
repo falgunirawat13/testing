@@ -9,18 +9,18 @@ function Contract() {
 
   const navigate=useNavigate();
   const columns = [
-    'File No.',
-    'Client',
-    'Any Discount',
-    'Discount',
-    'Quotation Status',
-    'Final Quotation Amount',
-    'Standards',
-    'Certificate Type',
-    'Zone',
-    'First Year Value',
-    'Questionnaire Received Date',
-    'Contract Review Approval Date'
+    { Header: 'File No.', accessor: 'fileNo' },
+    { Header: 'Client', accessor: 'client' },
+    { Header: 'Any Discount', accessor: 'anyDiscount' },
+    { Header: 'Discount', accessor: 'discount' },
+    { Header: 'Quotation Status', accessor: 'quotationStatus' },
+    { Header: 'Final Quotation Amount', accessor: 'finalQuotationAmount' },
+    { Header: 'Standards', accessor: 'standards' },
+    { Header: 'Certificate Type', accessor: 'certificateType' },
+    { Header: 'Zone', accessor: 'zone' },
+    { Header: 'First Year Value', accessor: 'firstYearValue' },
+    { Header: 'Questionnaire Received Date', accessor: 'questionnaireReceivedDate' },
+    { Header: 'Contract Review Approval Date', accessor: 'contractReviewApprovalDate' },
   ];
 
   const [leadData, setLeadData] = useState([

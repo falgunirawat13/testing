@@ -43,7 +43,7 @@ const SignIn: React.FC = () => {
       {/* <Breadcrumb pageName="Sign In" /> */}
       <div className="mb-6 flex items-center gap-3 sm:flex-row sm:items-center sm:justify-center">
       <h2 className="text-title-md2 font-semibold text-black dark:text-white">
-        Sign In
+        Sign in
       </h2>
       </div>
 

@@ -20,6 +20,7 @@ const TableOne = () => {
     const fetchUsers = async () => {
       try {
         const response = await axios.get('http://localhost:8000/users'); // Replace with your API endpoint
+        console.log("respone1",response);
         if (Array.isArray(response.data)) {
           setUsers(response.data);
           setFilteredUsers(response.data);
@@ -104,8 +105,9 @@ const TableOne = () => {
               <td className="p-4">{user.firstName || ''}</td>
               <td className="p-4">{user.email || ''}</td>
               <td className="p-4">{user.contactNumber || ''}</td>
-              <td className="p-4">{user.department || ''}</td>
-              <td className="p-4">{user.role || ''}</td>
+              <td className="p-4">{user.department
+ || 'NA'}</td>
+              <td className="p-4">{user.roleName || ''}</td>
               <td className="p-4">
                 <Button variant="outline-dark" 
                 size="sm"

@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import TableOne from '../components/Tables/TableOne';
-import HeaderWithButton from '../components/Header/HeaderWithButton';
+import TableOne from '../../components/Tables/TableOne';
+import HeaderWithButton from '../../components/Header/HeaderWithButton';
 import { useNavigate } from 'react-router-dom';
+import TableFive from '../../components/Tables/TableFive';
 
 const Tables = () => {
   const navigate=useNavigate();
@@ -16,21 +17,20 @@ const Tables = () => {
   // };
 
   const handleRoute=()=>{
-    navigate('/forms/form-elements')
-
+    // navigate('/forms/form-elements')
+    navigate('/form-elements')
   }
 
   return (
     <>
       {/* Use the reusable HeaderWithButton component */}
       <HeaderWithButton
-        title="UserList"
-        buttonLabel="Create New User"
-        onButtonClick={handleRoute}
+              title="Create Auditor Login"
+              buttonLabel="Create New Auditor Login" onButtonClick={undefined}        // onButtonClick={handleRoute}
       />
 
       <div className="flex flex-col gap-10">
-        <TableOne />
+        <TableFive />
         {/* <TableTwo />
         <TableThree /> */}
       </div>
