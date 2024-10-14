@@ -39,7 +39,7 @@ const Upgradation5 = () => {
       <Form>
         <Row className="mb-3">
           {/* Registration No */}
-          <Form.Group as={Col} controlId="registrationNo">
+          <Form.Group as={Col} controlId="registrationNo" sm={12} md={6}>
             <label className="font-medium text-black dark:text-white mb-1">
               Registration No
             </label>
@@ -49,7 +49,7 @@ const Upgradation5 = () => {
 
         <Row className="mb-3">
           {/* Salutation */}
-          <Form.Group as={Col} controlId="salutation">
+          <Form.Group as={Col} controlId="salutation" sm={12} md={4}>
             <label className="font-medium text-black dark:text-white mb-1">
               Salutation
             </label>
@@ -61,7 +61,7 @@ const Upgradation5 = () => {
           </Form.Group>
 
           {/* Name */}
-          <Form.Group as={Col} controlId="name">
+          <Form.Group as={Col} controlId="name" sm={12} md={4}>
             <label className="font-medium text-black dark:text-white mb-1">
               Name
             </label>
@@ -73,7 +73,7 @@ const Upgradation5 = () => {
           </Form.Group>
 
           {/* Address */}
-          <Form.Group as={Col} controlId="address">
+          <Form.Group as={Col} controlId="address" sm={12} md={4}>
             <label className="font-medium text-black dark:text-white mb-1">
               Address
             </label>
@@ -87,7 +87,7 @@ const Upgradation5 = () => {
 
         <Row className="mb-3">
           {/* Education Details */}
-          <Form.Group as={Col} controlId="educationDetails">
+          <Form.Group as={Col} controlId="educationDetails" sm={12}>
             <label className="font-medium text-black dark:text-white mb-1">
               Education Details
             </label>
@@ -97,7 +97,7 @@ const Upgradation5 = () => {
 
         <Row className="mb-3">
           {/* Zone */}
-          <Form.Group as={Col} controlId="zone">
+          <Form.Group as={Col} controlId="zone" sm={12} md={4}>
             <label className="font-medium text-black dark:text-white mb-1">
               Zone
             </label>
@@ -110,7 +110,7 @@ const Upgradation5 = () => {
           </Form.Group>
 
           {/* Is part of ISSPL? */}
-          <Form.Group as={Col} controlId="isspl">
+          <Form.Group as={Col} controlId="isspl" sm={12} md={4}>
             <label className="font-medium text-black dark:text-white mb-1">
               Is part of ISSPL?
             </label>
@@ -121,7 +121,7 @@ const Upgradation5 = () => {
           </Form.Group>
 
           {/* Is part of IRS? */}
-          <Form.Group as={Col} controlId="irs">
+          <Form.Group as={Col} controlId="irs" sm={12} md={4}>
             <label className="font-medium text-black dark:text-white mb-1">
               Is part of IRS?
             </label>
@@ -132,7 +132,7 @@ const Upgradation5 = () => {
           </Form.Group>
 
           {/* Date of Birth */}
-          <Form.Group as={Col} controlId="dob">
+          <Form.Group as={Col} controlId="dob" sm={12} md={4}>
             <label className="font-medium text-black dark:text-white mb-1">
               Date of Birth
             </label>
@@ -142,7 +142,7 @@ const Upgradation5 = () => {
 
         <Row className="mb-3">
           {/* Nationality */}
-          <Form.Group as={Col} controlId="nationality">
+          <Form.Group as={Col} controlId="nationality" sm={12} md={4}>
             <label className="font-medium text-black dark:text-white mb-1">
               Nationality
             </label>
@@ -150,7 +150,7 @@ const Upgradation5 = () => {
           </Form.Group>
 
           {/* Contact No */}
-          <Form.Group as={Col} controlId="contactNo">
+          <Form.Group as={Col} controlId="contactNo" sm={12} md={4}>
             <label className="font-medium text-black dark:text-white mb-1">
               Contact No
             </label>
@@ -158,7 +158,7 @@ const Upgradation5 = () => {
           </Form.Group>
 
           {/* Fax No */}
-          <Form.Group as={Col} controlId="faxNo">
+          <Form.Group as={Col} controlId="faxNo" sm={12} md={4}>
             <label className="font-medium text-black dark:text-white mb-1">
               Fax No
             </label>
@@ -166,7 +166,7 @@ const Upgradation5 = () => {
           </Form.Group>
 
           {/* Mobile No */}
-          <Form.Group as={Col} controlId="mobileNo">
+          <Form.Group as={Col} controlId="mobileNo" sm={12} md={4}>
             <label className="font-medium text-black dark:text-white mb-1">
               Mobile No
             </label>
@@ -174,7 +174,7 @@ const Upgradation5 = () => {
           </Form.Group>
 
           {/* Email ID */}
-          <Form.Group as={Col} controlId="email">
+          <Form.Group as={Col} controlId="email" sm={12} md={4}>
             <label className="font-medium text-black dark:text-white mb-1">
               Email ID
             </label>
@@ -192,7 +192,7 @@ const Upgradation5 = () => {
         <h3 className="font-medium text-black dark:text-white mb-1 mt-4">
           Standard-wise Auditor Roles
         </h3>
-        <Table bordered>
+        <Table bordered responsive="sm">
           <thead>
             <tr>
               <th>Standard</th>
@@ -212,7 +212,7 @@ const Upgradation5 = () => {
         <h3 className="font-medium text-black dark:text-white mb-1 mt-4">
           Existing NaceCodes
         </h3>
-        <Table bordered>
+        <Table bordered responsive="sm">
           <thead>
             <tr>
               <th>NaceCode (Rev 1)</th>
@@ -232,7 +232,7 @@ const Upgradation5 = () => {
         <h3 className="font-medium text-black dark:text-white mb-1 mt-4">
           Existing Category Codes
         </h3>
-        <Table bordered>
+        <Table bordered responsive="sm">
           <thead>
             <tr>
               <th>Standard</th>
@@ -250,34 +250,35 @@ const Upgradation5 = () => {
             ))}
           </tbody>
         </Table>
-      </Form>
-      <div className="flex justify-between p-4">
-        {/* Left-aligned button */}
-        <div className="flex justify-start space-x-4">
-          <Button
-            className="bg-black text-white px-6 py-2 rounded-md shadow-md"
-            type="button"
-          >
-            Deactivate
-          </Button>
-        </div>
 
-        {/* Right-aligned buttons */}
-        <div className="flex justify-end space-x-4">
-          <Button
-            className="bg-white text-black border-black border px-6 py-2 rounded-md shadow-md"
-            type="button"
-          >
-            Save Changes
-          </Button>
-          <Button
-            className="bg-black text-white px-6 py-2 rounded-md shadow-md"
-            type="button"
-          >
-            Close
-          </Button>
+        <div className="flex justify-between">
+          {/* Left-aligned button */}
+          <div className="flex justify-start space-x-4">
+            <Button
+              className="bg-black text-white px-6 py-2 rounded-md shadow-md"
+              type="button"
+            >
+              Deactivate
+            </Button>
+          </div>
+
+          {/* Right-aligned buttons */}
+          <div className="flex justify-end space-x-2">
+            <Button
+              className="bg-white text-black border-black border px-4 py-2 rounded-md shadow-md"
+              type="button"
+            >
+              Save Changes
+            </Button>
+            <Button
+              className="bg-black text-white px-4 py-2 rounded-md shadow-md"
+              type="button"
+            >
+              Close
+            </Button>
+          </div>
         </div>
-      </div>
+      </Form>
     </>
   );
 };
