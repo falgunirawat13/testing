@@ -49,6 +49,16 @@ import ApproveAuditorQualification from './pages/AuditorSubmit/ApproveAuditorQua
 import AuditorInformation from './pages/Auditor/AuditorInformation';
 import ZonalHeadViewList from './pages/AuditorSubmit/ZonalHeadViewList';
 import AuditorLogin from './pages/Auditor/AuditorLogin';
+import Validation from './pages/Auditor/Validation';
+import Validation1 from './pages/Auditor/Validation1';
+import CodeComponent from './pages/Auditor/CodeComponent';
+import UploadDocs from './pages/Auditor/UploadDocs';
+import Validation2 from './pages/Auditor/Validation2';
+import Upgradation from './pages/Auditor/Upgradation';
+import Upgradation1 from './pages/Auditor/Upgradation1';
+import Upgradation2 from './pages/Auditor/Upgradation2';
+import Upgradation3 from './pages/Auditor/Upgradation3';
+import Upgradation4 from './pages/Auditor/Upgradation4';
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
   const { pathname } = useLocation();
@@ -498,6 +508,115 @@ function App() {
             </>
           }
         />
+
+        <Route
+          path="/validation"
+          element={
+            <>
+              <PageTitle title="Validation | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+
+              <Validation />
+            </>
+          }
+        />
+
+        <Route
+          path="/view/:index"
+          element={
+            <>
+              <PageTitle title="Validation | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+
+              <CodeComponent />
+            </>
+          }
+        />
+
+        <Route
+          path="/validation1"
+          element={
+            <>
+              <PageTitle title="Validation | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+
+              <Validation1 />
+            </>
+          }
+        />
+
+        <Route
+          path="/upload"
+          element={
+            <>
+              <PageTitle title="Validation | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+
+              <UploadDocs />
+            </>
+          }
+        />
+        <Route
+          path="/validation2"
+          element={
+            <>
+              <PageTitle title="Validation | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+
+              <Validation2 />
+            </>
+          }
+        />
+        <Route
+          path="/Upgradation"
+          element={
+            <>
+              <PageTitle title="Upgradation| TailAdmin - Tailwind CSS Admin Dashboard Template" />
+
+              <Upgradation />
+            </>
+          }
+        />
+
+        <Route
+          path="/Upgradation1"
+          element={
+            <>
+              <PageTitle title="Validation | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+
+              <Upgradation1 />
+            </>
+          }
+        />
+
+        <Route
+          path="/Upgradation2"
+          element={
+            <>
+              <PageTitle title="Validation | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+
+              <Upgradation2 />
+            </>
+          }
+        />
+
+        <Route
+          path="/Upgradation3"
+          element={
+            <>
+              <PageTitle title="Validation | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+
+              <Upgradation3 />
+            </>
+          }
+        />
+
+        <Route
+          path="/Upgradation4"
+          element={
+            <>
+              <PageTitle title="Validation | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+
+              <Upgradation4 />
+            </>
+          }
+        />
+
         <Route
           path="/auditorLogin"
           element={

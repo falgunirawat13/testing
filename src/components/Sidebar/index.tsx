@@ -828,7 +828,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                   Monitoring Evaluation
                 </NavLink>
               </li> */}
-              {role === 'Zonal Planner' && (
+              {role !== 'Zonal Planner' && (
                 <li>
                   <NavLink
                     to="/bioDataInfo"

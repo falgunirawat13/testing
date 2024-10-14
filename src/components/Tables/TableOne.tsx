@@ -13,14 +13,14 @@ const TableOne = () => {
   const [filteredUsers, setFilteredUsers] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [usersPerPage] = useState(5);
-  const navigate=useNavigate();
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Fetch user data from API
     const fetchUsers = async () => {
       try {
         const response = await axios.get('http://localhost:8000/users'); // Replace with your API endpoint
-        console.log("respone1",response);
+        console.log('respone1', response);
         if (Array.isArray(response.data)) {
           setUsers(response.data);
           setFilteredUsers(response.data);
@@ -39,8 +39,8 @@ const TableOne = () => {
     // Filter users based on search term
     setFilteredUsers(
       users.filter((user) =>
-        (user.firstName || '').toLowerCase().includes(searchTerm.toLowerCase())
-      )
+        (user.firstName || '').toLowerCase().includes(searchTerm.toLowerCase()),
+      ),
     );
     setCurrentPage(1); // Reset to page 1 after filtering
   }, [searchTerm, users]);
@@ -68,13 +68,9 @@ const TableOne = () => {
     }
   };
 
-
-
-  const updateUser=(id)=>{
-
-    navigate(`/tables/edit-user/${id}`)
-
-  }
+  const updateUser = (id) => {
+    navigate(`/tables/edit-user/${id}`);
+  };
 
   return (
     <div className="container my-4">
@@ -105,13 +101,13 @@ const TableOne = () => {
               <td className="p-4">{user.firstName || ''}</td>
               <td className="p-4">{user.email || ''}</td>
               <td className="p-4">{user.contactNumber || ''}</td>
-              <td className="p-4">{user.department
- || 'NA'}</td>
+              <td className="p-4">{user.department || 'NA'}</td>
               <td className="p-4">{user.roleName || ''}</td>
               <td className="p-4">
-                <Button variant="outline-dark" 
-                size="sm"
-                onClick={()=>updateUser(user.id)}
+                <Button
+                  variant="outline-dark"
+                  size="sm"
+                  onClick={() => updateUser(user.id)}
                 >
                   <MdOutlineEdit />
                 </Button>

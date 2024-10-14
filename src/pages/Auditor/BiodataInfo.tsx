@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
-import FormControl from 'react-bootstrap/FormControl';
+// import FormControl from 'react-bootstrap/FormControl';
 import Form from 'react-bootstrap/Form';
 import 'react-datepicker/dist/react-datepicker.css';
 import DatePicker from 'react-datepicker';
@@ -58,7 +58,7 @@ const BiodataInfo = () => {
 
   useEffect(() => {
     axios
-      .get('http://localhost:8000/api/auditor-qualifications')
+      .get('http://localhost:8000/api/auditor/auditorLanguage')
       .then((response) => {
         setFormData(response.data);
       })
@@ -91,26 +91,28 @@ const BiodataInfo = () => {
     }));
   };
 
-  // const token = localStorage.getItem('token');
-  // const config = {
-  //   headers: {
-  //     Authorization: `Bearer ${token}`,
-  //   },
-  // };
-
-  const handleSubmit = (e) => {
-    e.preventDefault(); // Prevent default form submission behavior
+  const handleSubmit = (event) => {
+    event.preventDefault(); // Prevent form from reloading the page
     axios
       .post('http://localhost:8000/api/auditor/auditors', formData)
       .then((response) => {
         console.log('Form submitted successfully:', response.data);
-        // Optionally show a success message or redirect
       })
       .catch((error) => {
-        console.error('Error submitting form:', error);
-        // Optionally show an error message
+        if (error.response) {
+          // The request was made, and the server responded with a status code
+          console.error('Server responded with:', error.response.data);
+          console.error('Response status:', error.response.status);
+        } else if (error.request) {
+          // The request was made, but no response was received
+          console.error('No response received:', error.request);
+        } else {
+          // Something happened in setting up the request
+          console.error('Error in setting up the request:', error.message);
+        }
       });
   };
+
   const [applyForOptions, setApplyForOptions] = useState([]);
   const [standardOptions, setStandardOptions] = useState([]);
   const [zoneOptions, setZoneOptions] = useState([]); // Initialize as an empty array
@@ -169,46 +171,151 @@ const BiodataInfo = () => {
     fetchData();
   }, []);
 
-  const [, setUsers] = useState([]); // State to hold user data
-  const [, setFilteredUsers] = useState([]); // State for filtered user data
+  // const [users, setUsers] = useState([]);
+  // const [filteredUsers, setFilteredUsers] = useState([]);
   const [selectedDate, setSelectedDate] = useState(null);
-  const [selectedOption, setSelectedOption] = useState('');
+  // const [selectedOption, setSelectedOption] = useState('');
 
-  const handleSelectChange = (event: {
-    target: { value: React.SetStateAction<string> };
-  }) => {
-    setSelectedOption(event.target.value);
+  // const handleSelectChange = (event: {
+  //   target: { value: React.SetStateAction<string> };
+  // }) => {
+  //   setSelectedOption(event.target.value);
+  // };
+  // useEffect(() => {
+  //   const staticUsers = [
+  //     {
+  //       id: 1,
+  //       auditType: 'Internal',
+  //       standard: 'ISO 9001',
+  //       mandays: 5,
+  //       naceCode1: '1234',
+  //       naceCode2: '5678',
+  //       iafCode: '01',
+  //       risk: 'Low',
+  //       subCategory: 'Category A',
+  //     },
+  //     {
+  //       id: 2,
+  //       auditType: 'External',
+  //       standard: 'ISO 14001',
+  //       mandays: 7,
+  //       naceCode1: '2345',
+  //       naceCode2: '6789',
+  //       iafCode: '02',
+  //       risk: 'High',
+  //       subCategory: 'Category B',
+  //     },
+  //     // Add more static users as needed
+  //   ];
+
+  //   setUsers(staticUsers);
+  //   setFilteredUsers(staticUsers);
+  // }, []);
+
+  const [workExperiences, setWorkExperiences] = useState([
+    {
+      yearsOfExperience: '',
+      organizationName: '',
+      businessLine: '',
+      tenure: '',
+      responsibilities: '',
+    },
+  ]);
+
+  const [consultancyExperiences, setConsultancyExperiences] = useState([
+    {
+      yearsOfConsultancy: '',
+      consultancySector: '',
+      numberOfClients: '',
+    },
+  ]);
+
+  const [trainingExperiences, setTrainingExperiences] = useState([
+    {
+      yearsOfTraining: '',
+      trainingSector: '',
+      numberOfTrainings: '',
+    },
+  ]);
+
+  const [auditingExperiences, setAuditingExperiences] = useState([
+    {
+      yearsOfAuditing: '',
+      auditingSector: '',
+      numberOfMandays: '',
+    },
+  ]);
+
+  const handleAddExperience = () => {
+    setWorkExperiences([
+      ...workExperiences,
+      {
+        yearsOfExperience: '',
+        organizationName: '',
+        businessLine: '',
+        tenure: '',
+        responsibilities: '',
+      },
+    ]);
   };
-  useEffect(() => {
-    const staticUsers = [
-      {
-        id: 1,
-        auditType: 'Internal',
-        standard: 'ISO 9001',
-        mandays: 5,
-        naceCode1: '1234',
-        naceCode2: '5678',
-        iafCode: '01',
-        risk: 'Low',
-        subCategory: 'Category A',
-      },
-      {
-        id: 2,
-        auditType: 'External',
-        standard: 'ISO 14001',
-        mandays: 7,
-        naceCode1: '2345',
-        naceCode2: '6789',
-        iafCode: '02',
-        risk: 'High',
-        subCategory: 'Category B',
-      },
-      // Add more static users as needed
-    ];
 
-    setUsers(staticUsers);
-    setFilteredUsers(staticUsers);
-  }, []);
+  const handleInputChange = (index, field, value) => {
+    const updatedExperiences = [...workExperiences];
+    updatedExperiences[index][field] = value;
+    setWorkExperiences(updatedExperiences);
+  };
+
+  const handleAddConsultancy = () => {
+    setConsultancyExperiences([
+      ...consultancyExperiences,
+      {
+        yearsOfConsultancy: '',
+        consultancySector: '',
+        numberOfClients: '',
+      },
+    ]);
+  };
+
+  const handleConsultancyInputChange = (index, field, value) => {
+    const updatedConsultancies = [...consultancyExperiences];
+    updatedConsultancies[index][field] = value;
+    setConsultancyExperiences(updatedConsultancies);
+  };
+
+  const handleAddTraining = () => {
+    setTrainingExperiences([
+      ...trainingExperiences,
+      {
+        yearsOfTraining: '',
+        trainingSector: '',
+        numberOfTrainings: '',
+      },
+    ]);
+  };
+
+  const handleTrainingInputChange = (index, field, value) => {
+    const updatedTrainings = [...trainingExperiences];
+    updatedTrainings[index][field] = value;
+    setTrainingExperiences(updatedTrainings);
+  };
+
+  // Auditing Handlers
+  const handleAddAuditing = () => {
+    setAuditingExperiences([
+      ...auditingExperiences,
+      {
+        yearsOfAuditing: '',
+        auditingSector: '',
+        numberOfMandays: '',
+      },
+    ]);
+  };
+
+  const handleAuditingInputChange = (index, field, value) => {
+    const updatedAuditings = [...auditingExperiences];
+    updatedAuditings[index][field] = value;
+    setAuditingExperiences(updatedAuditings);
+  };
 
   const [visibleSections, setVisibleSections] = useState({
     workExperience: false,
@@ -224,17 +331,16 @@ const BiodataInfo = () => {
       [section]: !prevState[section],
     }));
   };
-  console.log(formData.zone);
-  console.log(formData.name, 'ABC');
-  console.log(formData);
+
+  // console.log(formData);
 
   return (
     <>
-      <h1 className="text-3xl font-bold text-black mb-4">
-        Auditor Biodata Information
-      </h1>
       {/* Main Container for Fields */}
       <form onSubmit={handleSubmit}>
+        <h1 className="text-3xl font-bold text-black mb-4">
+          Auditor Biodata Information
+        </h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-3">
           {/* Field: Apply For */}
           <div className="flex flex-col">
@@ -263,28 +369,6 @@ const BiodataInfo = () => {
             </Form.Select>
           </div>
 
-          {/* <div className="flex flex-col">
-            <label htmlFor="standard" className="font-medium text-black mb-1">
-              Standard
-            </label>
-            <Form.Select
-              name="standard"
-              value={formData.standard}
-              onChange={handleChange}
-              className="mt-2"
-            >
-              <option value="">Select</option>
-              {standardOptions.map((option) => (
-                <option key={option.id} value={option.id}>
-                  {' '}
-                 Assuming each option has an id 
-                  {option.name}{' '}
-                   Adjust based on the actual structure of the option 
-                </option>
-              ))}
-            </Form.Select>
-          </div> */}
-
           <div className="flex flex-col">
             <label
               htmlFor="zone"
@@ -301,7 +385,7 @@ const BiodataInfo = () => {
               <option value="">Select</option>
               {Array.isArray(zoneOptions) && zoneOptions.length > 0 ? (
                 zoneOptions.map((option) => (
-                  <option key={option.id} value={option.name}>
+                  <option key={option.id} value={option.id}>
                     {option.name}
                   </option>
                 ))
@@ -368,12 +452,6 @@ const BiodataInfo = () => {
               className="border rounded-lg w-[100%] p-2"
               placeholderText="Select"
             />
-            {/* <Form.Control
-            id="birthDate"
-            type="date"
-            className="border rounded-lg"
-            aria-label="Date of Birth"
-          /> */}
           </div>
 
           {/* Field: Is part of ISSPL? */}
@@ -454,39 +532,6 @@ const BiodataInfo = () => {
             />
           </div>
         </div>
-        {/* Address Field */}
-        {/* <div className="flex">
-          <div className="flex flex-col  mt-3 w-1/3 mr-2">
-            <label
-              htmlFor="address"
-              className="font-medium text-black dark:text-white mb-1"
-            >
-              Expertise
-            </label>
-            <Form.Control
-              as="textarea"
-              aria-label="Address"
-              className="p-2 border rounded-lg resize-none"
-              rows={1}
-              placeholder="Expertise"
-            />
-          </div>
-          <div className="flex flex-col  mt-3 w-1/3">
-            <label
-              htmlFor="address"
-              className="font-medium text-black dark:text-white mb-1"
-            >
-              Address
-            </label>
-            <Form.Control
-              as="textarea"
-              aria-label="Address"
-              className="p-2 border rounded-lg resize-none"
-              rows={1}
-              placeholder="Address"
-            />
-          </div>
-        </div> */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-3">
           <div className="flex flex-col">
             <label
@@ -767,25 +812,65 @@ const BiodataInfo = () => {
             : 'Add Work Experience'}
         </button>
         {visibleSections.workExperience && (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-1 mb-2">
-            {[
-              'No. of years in work experience',
-              'Name of the organization',
-              "Organization's line of business",
-              'Tenure',
-              'Roles and responsibilities w.r.t. required competencies',
-            ].map((label, index) => (
-              <div key={index} className="flex flex-col">
-                <label className="font-medium text-black dark:text-white mb-1">
-                  {label}
-                </label>
-                <Form.Control
-                  type="text"
-                  className="border rounded-lg"
-                  placeholder="Enter"
-                />
+          <div>
+            {workExperiences.map((experience, index) => (
+              <div
+                key={index}
+                className="border border-gray-300 rounded-lg p-4 mb-4"
+              >
+                <h3 className="font-bold text-black text-l dark:text-white mr-2 mt-2 mb-3">
+                  Work Experience {index + 1}
+                </h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-1 mb-2">
+                  {[
+                    {
+                      label: 'No. of years in work experience',
+                      field: 'yearsOfExperience',
+                    },
+                    {
+                      label: 'Name of the organization',
+                      field: 'organizationName',
+                    },
+                    {
+                      label: "Organization's line of business",
+                      field: 'businessLine',
+                    },
+                    {
+                      label: 'Tenure',
+                      field: 'tenure',
+                    },
+                    {
+                      label:
+                        'Roles and responsibilities w.r.t. required competencies',
+                      field: 'responsibilities',
+                    },
+                  ].map(({ label, field }) => (
+                    <div key={field} className="flex flex-col">
+                      <label className="font-medium text-black dark:text-white mb-1">
+                        {label}
+                      </label>
+                      <Form.Control
+                        type="text"
+                        className="border rounded-lg"
+                        placeholder="Enter"
+                        value={experience[field]} // Bind the current value from state
+                        onChange={(e) =>
+                          handleInputChange(index, field, e.target.value)
+                        } // Handle input changes
+                      />
+                    </div>
+                  ))}
+                </div>
               </div>
             ))}
+
+            <Button
+              className="flex justify-center rounded py-2 px-3 font-bold text-white mb-4"
+              style={{ backgroundColor: '#343a40', border: 'none' }}
+              onClick={handleAddExperience}
+            >
+              +
+            </Button>
           </div>
         )}
         <button
@@ -797,23 +882,60 @@ const BiodataInfo = () => {
             : 'Add Consultancy Experience'}
         </button>
         {visibleSections.consultancy && (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-1 mb-2">
-            {[
-              'Number of Years in Consultancy',
-              'Consultancy Provided in Sector',
-              'Number of Clients',
-            ].map((label, index) => (
-              <div key={index} className="flex flex-col mt-4">
-                <label className="font-medium text-black dark:text-white mb-1">
-                  {label}
-                </label>
-                <Form.Control
-                  type="text"
-                  className="border rounded-lg"
-                  placeholder="Enter"
-                />
+          <div>
+            {consultancyExperiences.map((experience, index) => (
+              <div
+                key={index}
+                className="border border-gray-300 rounded-lg p-4 mb-4"
+              >
+                <h3 className="font-bold text-black text-l dark:text-white mr-2 mt-2 mb-3">
+                  Consultancy Experience {index + 1}
+                </h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-1 mb-2">
+                  {[
+                    {
+                      label: 'No. of years in consultancy',
+                      field: 'yearsOfConsultancy',
+                    },
+                    {
+                      label: 'Consultancy Provided in Sector',
+                      field: 'consultancySector',
+                    },
+                    {
+                      label: 'Number of Clients',
+                      field: 'numberOfClients',
+                    },
+                  ].map(({ label, field }) => (
+                    <div key={field} className="flex flex-col">
+                      <label className="font-medium text-black dark:text-white mb-1">
+                        {label}
+                      </label>
+                      <Form.Control
+                        type="text"
+                        className="border rounded-lg"
+                        placeholder="Enter"
+                        value={experience[field]} // Bind the current value from state
+                        onChange={(e) =>
+                          handleConsultancyInputChange(
+                            index,
+                            field,
+                            e.target.value,
+                          )
+                        } // Handle input changes
+                      />
+                    </div>
+                  ))}
+                </div>
               </div>
             ))}
+
+            <Button
+              className="flex justify-center rounded py-2 px-3 font-bold text-white mb-4"
+              style={{ backgroundColor: '#343a40', border: 'none' }}
+              onClick={handleAddConsultancy}
+            >
+              +
+            </Button>
           </div>
         )}
         <button
@@ -825,23 +947,60 @@ const BiodataInfo = () => {
             : 'Add Auditing Experience'}
         </button>
         {visibleSections.auditing && (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-1 mb-2">
-            {[
-              'Number of Years in Auditing',
-              'Audited in Sector',
-              'Number of Mandays',
-            ].map((label, index) => (
-              <div key={index} className="flex flex-col mt-4">
-                <label className="font-medium text-black dark:text-white mb-1">
-                  {label}
-                </label>
-                <Form.Control
-                  type="text"
-                  className="border rounded-lg"
-                  placeholder="Enter"
-                />
+          <div>
+            {auditingExperiences.map((experience, index) => (
+              <div
+                key={index}
+                className="border border-gray-300 rounded-lg p-4 mb-4"
+              >
+                <h3 className="font-bold text-black text-l dark:text-white mr-2 mt-2 mb-3">
+                  Auditing Experience {index + 1}
+                </h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-1 mb-2">
+                  {[
+                    {
+                      label: 'Number of Years in Auditing',
+                      field: 'yearsOfAuditing',
+                    },
+                    {
+                      label: 'Audited in Sector',
+                      field: 'auditingSector',
+                    },
+                    {
+                      label: 'Number of Mandays',
+                      field: 'numberOfMandays',
+                    },
+                  ].map(({ label, field }) => (
+                    <div key={field} className="flex flex-col">
+                      <label className="font-medium text-black dark:text-white mb-1">
+                        {label}
+                      </label>
+                      <Form.Control
+                        type="text"
+                        className="border rounded-lg"
+                        placeholder="Enter"
+                        value={experience[field]} // Bind the current value from state
+                        onChange={(e) =>
+                          handleAuditingInputChange(
+                            index,
+                            field,
+                            e.target.value,
+                          )
+                        } // Handle input changes
+                      />
+                    </div>
+                  ))}
+                </div>
               </div>
             ))}
+
+            <Button
+              className="flex justify-center rounded py-2 px-3 font-bold text-white mb-4"
+              style={{ backgroundColor: '#343a40', border: 'none' }}
+              onClick={handleAddAuditing}
+            >
+              +
+            </Button>
           </div>
         )}
         <button
@@ -853,23 +1012,60 @@ const BiodataInfo = () => {
             : 'Add Training Experience'}
         </button>
         {visibleSections.training && (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-1 mb-2">
-            {[
-              'No. of years in Training',
-              'Training imparted in Sector & on subject',
-              'Number of Trainings',
-            ].map((label, index) => (
-              <div key={index} className="flex flex-col mt-4">
-                <label className="font-medium text-black dark:text-white mb-1">
-                  {label}
-                </label>
-                <Form.Control
-                  type="text"
-                  className="border rounded-lg"
-                  placeholder="Enter"
-                />
+          <div>
+            {trainingExperiences.map((experience, index) => (
+              <div
+                key={index}
+                className="border border-gray-300 rounded-lg p-4 mb-4"
+              >
+                <h3 className="font-bold text-black text-l dark:text-white mr-2 mt-2 mb-3">
+                  Training Experience {index + 1}
+                </h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-1 mb-2">
+                  {[
+                    {
+                      label: 'No. of years in Training',
+                      field: 'yearsOfTraining',
+                    },
+                    {
+                      label: 'Training imparted in Sector & on subject',
+                      field: 'trainingSector',
+                    },
+                    {
+                      label: 'Number of Trainings',
+                      field: 'numberOfTrainings',
+                    },
+                  ].map(({ label, field }) => (
+                    <div key={field} className="flex flex-col">
+                      <label className="font-medium text-black dark:text-white mb-1">
+                        {label}
+                      </label>
+                      <Form.Control
+                        type="text"
+                        className="border rounded-lg"
+                        placeholder="Enter"
+                        value={experience[field]} // Bind the current value from state
+                        onChange={(e) =>
+                          handleTrainingInputChange(
+                            index,
+                            field,
+                            e.target.value,
+                          )
+                        } // Handle input changes
+                      />
+                    </div>
+                  ))}
+                </div>
               </div>
             ))}
+
+            <Button
+              className="flex justify-center rounded py-2 px-3 font-bold text-white mb-4"
+              style={{ backgroundColor: '#343a40', border: 'none' }}
+              onClick={handleAddTraining}
+            >
+              +
+            </Button>
           </div>
         )}
         {/* Supported Documents Section */}
@@ -947,7 +1143,7 @@ const BiodataInfo = () => {
           {/* Field: Qualification Criteria */}
           <div className="flex flex-col">
             <label
-              htmlFor="applyFor"
+              htmlFor="otherQualifications"
               className="font-medium text-black dark:text-white mb-1"
             >
               Qualification Criteria
@@ -1006,7 +1202,7 @@ const BiodataInfo = () => {
             >
               <option value="">Select</option>
               {standardOptions.map((option) => (
-                <option key={option.id} value={option.id}>
+                <option key={option.id} value={option.name}>
                   {option.name}
                 </option>
               ))}
@@ -1020,12 +1216,12 @@ const BiodataInfo = () => {
           </div>
         </div>
         {/* Conditional Rendering for NACE codes */}
-        {(formData.standard === '20' ||
-          formData.standard === '13' ||
-          formData.standard === '36' ||
-          formData.standard === '62' ||
-          formData.standard === '11' ||
-          formData.standard === '54') && (
+        {(formData.standard === 'ISO 9001:2015' ||
+          formData.standard === 'IATF 16949:2016' ||
+          formData.standard === 'ISO 13485 : 2016' ||
+          formData.standard === 'ISO 28000 :2022' ||
+          formData.standard === 'ISO 28000 :2007' ||
+          formData.standard === 'ISO 21001:2018') && (
           <div className="w-full mt-4">
             {' '}
             {/* Full width for NACE codes section */}
@@ -1071,7 +1267,6 @@ const BiodataInfo = () => {
                   className="mt-2"
                 >
                   <option>Select</option>
-                  <option value="Technical Area">Technical Area</option>
                   <option value="81.22">
                     81.22 (Other building and industrial cleaning activities)
                   </option>
@@ -1080,226 +1275,204 @@ const BiodataInfo = () => {
               </div>
             </div>
             {/* Conditionally render the table when "Technical Area" is selected */}
-            {formData.nacecode === 'Technical Area' &&
-              formData.standard === '20' && (
-                <div className="mt-4">
-                  <h2 className="font-bold text-black text-xl dark:text-white mr-2 mt-3 mb-3">
-                    Select Technical Area
-                  </h2>
-                  <Table striped bordered hover>
-                    <thead>
-                      <tr>
-                        <th>IAF/EA Code(s)</th>
-                        <th>NACE Rev2</th>
-                        <th>QMS-Risk</th>
-                        <th>Key Process involved</th>
-                        <th>Quality Control</th>
-                        <th>Product Requirement</th>
-                        <th>Applicable legal & statutory requirements</th>
-                        <th> Link with Question Bank (Google Form)</th>
-                        <th>Upload the Answer-sheet</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                      </tr>
-                    </tbody>
-                  </Table>
-                </div>
-              )}
-            {formData.nacecode === 'Technical Area' &&
-              formData.standard === '13' && (
-                <div className="mt-4">
-                  <h2 className="font-bold text-black text-xl dark:text-white mr-2 mt-3 mb-3">
-                    Select Technical Area
-                  </h2>
-                  <Table striped bordered hover>
-                    <thead>
-                      <tr>
-                        <th>IAF/EA Code(s)</th>
-                        <th>NACE Rev2</th>
-                        <th>QMS-Risk</th>
-                        <th>Key Process involved</th>
-                        <th>Quality Control</th>
-                        <th>Product Requirement</th>
-                        <th>Applicable legal & statutory requirements</th>
-                        <th> Link with Question Bank (Google Form)</th>
-                        <th>Upload the Answer-sheet</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                      </tr>
-                    </tbody>
-                  </Table>
-                </div>
-              )}
-            {formData.nacecode === 'Technical Area' &&
-              (formData.standard === '62' || formData.standard === '11') && (
-                <div className="mt-4">
-                  <h2 className="font-bold text-black text-xl dark:text-white mr-2 mt-3 mb-3">
-                    Select Technical Area
-                  </h2>
-                  <Table striped bordered hover>
-                    <thead>
-                      <tr>
-                        <th>Main Technical Area for SCSMS / SRSMS</th>
-                        <th>Sub-Technical Area SCSMS / SRSMS</th>
-                        <th>Supply Chain related experience</th>
-                        <th>
-                          Link with Competence Matrix Form No. 81 (Google Form)
-                        </th>
-                        <th>Submit the Duly filled Form No. 81</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td> </td>
-                        <td> </td>
-                        <td> </td>
-                        <td> </td>
-                        <td> </td>
-                      </tr>
-                    </tbody>
-                  </Table>
-                </div>
-              )}
-            {formData.nacecode === 'Technical Area' &&
-              formData.standard === '54' && (
-                <div className="mt-4">
-                  <h2 className="font-bold text-black text-xl dark:text-white mr-2 mt-3 mb-3">
-                    Select Technical Area
-                  </h2>
-                  <Table striped bordered hover>
-                    <thead>
-                      <tr>
-                        <th>Master Technical Area for EOMS</th>
-                        <th>Processes involved</th>
-                        <th>Competence required</th>
-                        <th>
-                          Legal / accreditation requirement [Legal Requirements
-                          & Admission Process(s), as applicable]
-                        </th>
-                        <th>Process of Monitoring</th>
-                        <th>
-                          Link with Competence Matrix Form No. 128 (Google Form)
-                        </th>
-                        <th>Submission the Duly filled Form No. 128</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td> </td>
-                        <td> </td>
-                        <td> </td>
-                        <td> </td>
-                        <td> </td>
-                        <td> </td>
-                        <td> </td>
-                      </tr>
-                    </tbody>
-                  </Table>
-                </div>
-              )}
-            {formData.nacecode === 'Technical Area' &&
-              formData.standard === '36' && (
-                <div className="mt-4">
-                  <h2 className="font-bold text-black text-xl dark:text-white mr-2 mt-3 mb-3">
-                    This screen should be reflected as
-                  </h2>
-                  <Table striped bordered hover>
-                    <thead>
-                      <tr>
-                        <th rowSpan="2">Main Technical Area (MTA)</th>
-                        <th rowSpan="2">Sub Technical Area (STA)</th>
-                        <th colSpan="2">PRODUCT RELATED KNOWLEDGE</th>
-                        <th colSpan="2">PROCESS RELATED KNOWLEDGE</th>
-                      </tr>
-                      <tr>
-                        <th>
-                          List out few Products and services related to this
-                          technical area
-                        </th>
-                        <th>
-                          List at least 3 examples of typical
-                          defects/non-conformances in this Technical Area
-                        </th>
-                        <th>
-                          List at least 3 main critical processes in this
-                          Technical Area and briefly describe one process
-                        </th>
-                        <th>
-                          List at least 3 main critical processes in this
-                          Technical Area and briefly describe one process
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>
-                          <select>
-                            <option value="">Drop Down for Selection</option>
-                            <option value="MTA1">Main Technical Area 1</option>
-                            <option value="MTA2">Main Technical Area 2</option>
-                          </select>
-                        </td>
-                        <td>
-                          <select>
-                            <option value="">Drop Down for Selection</option>
-                            <option value="STA1">Sub Technical Area 1</option>
-                            <option value="STA2">Sub Technical Area 2</option>
-                          </select>
-                        </td>
-                        <td>
-                          <input
-                            type="text"
-                            placeholder="Box for Type the Details"
-                          />
-                        </td>
-                        <td>
-                          <input
-                            type="text"
-                            placeholder="Box for Type the Details"
-                          />
-                        </td>
-                        <td>
-                          <input
-                            type="text"
-                            placeholder="Box for Type the Details"
-                          />
-                        </td>
-                        <td>
-                          <input
-                            type="text"
-                            placeholder="Box for Type the Details"
-                          />
-                        </td>
-                      </tr>
-                    </tbody>
-                  </Table>
-                </div>
-              )}
+            {formData.standard === 'IATF 16949:2016' && (
+              <div className="mt-4">
+                <h2 className="font-bold text-black text-xl dark:text-white mr-2 mt-3 mb-3">
+                  Select Technical Area
+                </h2>
+                <Table striped bordered hover>
+                  <thead>
+                    <tr>
+                      <th>IAF/EA Code(s)</th>
+                      <th>NACE Rev2</th>
+                      <th>QMS-Risk</th>
+                      <th>Key Process involved</th>
+                      <th>Quality Control</th>
+                      <th>Product Requirement</th>
+                      <th>Applicable legal & statutory requirements</th>
+                      <th> Link with Question Bank (Google Form)</th>
+                      <th>Upload the Answer-sheet</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                  </tbody>
+                </Table>
+              </div>
+            )}
+            {(formData.standard === 'ISO 28000 :2022' ||
+              formData.standard === 'ISO 28000 :2007') && (
+              <div className="mt-4">
+                <h2 className="font-bold text-black text-xl dark:text-white mr-2 mt-3 mb-3">
+                  Select Technical Area
+                </h2>
+                <Table striped bordered hover>
+                  <thead>
+                    <tr>
+                      <th>Main Technical Area for SCSMS / SRSMS</th>
+                      <th>Sub-Technical Area SCSMS / SRSMS</th>
+                      <th>Supply Chain related experience</th>
+                      <th>
+                        Link with Competence Matrix Form No. 81 (Google Form)
+                      </th>
+                      <th>Submit the Duly filled Form No. 81</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td> </td>
+                      <td> </td>
+                      <td> </td>
+                      <td> </td>
+                      <td> </td>
+                    </tr>
+                  </tbody>
+                </Table>
+              </div>
+            )}
+            {formData.standard === 'ISO 21001:2018' && (
+              <div className="mt-4">
+                <h2 className="font-bold text-black text-xl dark:text-white mr-2 mt-3 mb-3">
+                  Select Technical Area
+                </h2>
+                <Table striped bordered hover>
+                  <thead>
+                    <tr>
+                      <th>Master Technical Area for EOMS</th>
+                      <th>Processes involved</th>
+                      <th>Competence required</th>
+                      <th>
+                        Legal / accreditation requirement [Legal Requirements &
+                        Admission Process(s), as applicable]
+                      </th>
+                      <th>Process of Monitoring</th>
+                      <th>
+                        Link with Competence Matrix Form No. 128 (Google Form)
+                      </th>
+                      <th>Submission the Duly filled Form No. 128</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td> </td>
+                      <td> </td>
+                      <td> </td>
+                      <td> </td>
+                      <td> </td>
+                      <td> </td>
+                      <td> </td>
+                    </tr>
+                  </tbody>
+                </Table>
+              </div>
+            )}
+            {formData.standard === 'ISO 13485 : 2016' && (
+              <div className="mt-4">
+                <h2 className="font-bold text-black text-xl dark:text-white mr-2 mt-3 mb-3">
+                  Technical Area
+                </h2>
+                <Table striped bordered hover>
+                  <thead>
+                    <tr>
+                      <th rowSpan="2">Main Technical Area (MTA)</th>
+                      <th rowSpan="2">Sub Technical Area (STA)</th>
+                      <th colSpan="2">PRODUCT RELATED KNOWLEDGE</th>
+                      <th colSpan="3">PROCESS RELATED KNOWLEDGE</th>
+                    </tr>
+                    <tr>
+                      <th>
+                        List out few Products and services related to this
+                        technical area
+                      </th>
+                      <th>
+                        List at least 3 examples of typical
+                        defects/non-conformances in this Technical Area
+                      </th>
+                      <th>
+                        List at least 3 main critical processes in this
+                        Technical Area and briefly describe one process
+                      </th>
+                      <th>
+                        Identify at least 3 critical control points/Key testing
+                        or measuring parameters from the above mentioned
+                        processes in this technical area
+                      </th>
+                      <th>
+                        List out possible externally provided processes,products
+                        and services used by the clients related to this
+                        technical area
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <select>
+                          <option value="">Drop Down for Selection</option>
+                          <option value="MTA1">Main Technical Area 1</option>
+                          <option value="MTA2">Main Technical Area 2</option>
+                        </select>
+                      </td>
+                      <td>
+                        <select>
+                          <option value="">Drop Down for Selection</option>
+                          <option value="STA1">Sub Technical Area 1</option>
+                          <option value="STA2">Sub Technical Area 2</option>
+                        </select>
+                      </td>
+                      <td>
+                        <input
+                          type="text"
+                          placeholder="Enter data"
+                          className="form-control"
+                        />
+                      </td>{' '}
+                      <td>
+                        <input
+                          type="text"
+                          placeholder="Enter data"
+                          className="form-control"
+                        />
+                      </td>{' '}
+                      <td>
+                        <input
+                          type="text"
+                          placeholder="Enter data"
+                          className="form-control"
+                        />
+                      </td>{' '}
+                      <td>
+                        <input
+                          type="text"
+                          placeholder="Enter data"
+                          className="form-control"
+                        />
+                      </td>
+                      <td>
+                        <input
+                          type="text"
+                          placeholder="Enter data"
+                          className="form-control"
+                        />
+                      </td>
+                    </tr>
+                  </tbody>
+                </Table>
+              </div>
+            )}
           </div>
         )}
-        {formData.standard === '21' && (
+        {formData.standard === 'ISO 14001:2015' && (
           <div className="mt-4">
             <h2 className="font-bold text-black text-xl dark:text-white mr-2 mt-3 mb-3">
               Generic Knowledge About ISO 14001
@@ -1331,18 +1504,54 @@ const BiodataInfo = () => {
               </thead>
               <tbody>
                 <tr>
-                  <td> </td>
-                  <td> </td>
-                  <td> </td>
-                  <td> </td>
-                  <td> </td>
-                  <td> </td>
+                  <td>
+                    <input
+                      type="text"
+                      placeholder="Enter data"
+                      className="form-control"
+                    />
+                  </td>
+                  <td>
+                    <input
+                      type="text"
+                      placeholder="Enter data"
+                      className="form-control"
+                    />
+                  </td>
+                  <td>
+                    <input
+                      type="text"
+                      placeholder="Enter data"
+                      className="form-control"
+                    />
+                  </td>
+                  <td>
+                    <input
+                      type="text"
+                      placeholder="Enter data"
+                      className="form-control"
+                    />
+                  </td>
+                  <td>
+                    <input
+                      type="text"
+                      placeholder="Enter data"
+                      className="form-control"
+                    />
+                  </td>
+                  <td>
+                    <input
+                      type="text"
+                      placeholder="Enter data"
+                      className="form-control"
+                    />
+                  </td>
                 </tr>
               </tbody>
             </Table>
           </div>
         )}
-        {formData.standard === '22' && (
+        {formData.standard === ' ISO 45001:2018' && (
           <div className="mt-4">
             <h2 className="font-bold text-black text-xl dark:text-white mr-2 mt-3 mb-3">
               Generic Knowledge About ISO 45001
@@ -1374,21 +1583,58 @@ const BiodataInfo = () => {
               </thead>
               <tbody>
                 <tr>
-                  <td> </td>
-                  <td> </td>
-                  <td> </td>
-                  <td> </td>
-                  <td> </td>
-                  <td> </td>
+                  <td>
+                    <input
+                      type="text"
+                      placeholder="Enter data"
+                      className="form-control"
+                    />
+                  </td>
+                  <td>
+                    <input
+                      type="text"
+                      placeholder="Enter data"
+                      className="form-control"
+                    />
+                  </td>
+                  <td>
+                    <input
+                      type="text"
+                      placeholder="Enter data"
+                      className="form-control"
+                    />
+                  </td>
+                  <td>
+                    <input
+                      type="text"
+                      placeholder="Enter data"
+                      className="form-control"
+                    />
+                  </td>
+                  <td>
+                    <input
+                      type="text"
+                      placeholder="Enter data"
+                      className="form-control"
+                    />
+                  </td>
+                  <td>
+                    <input
+                      type="text"
+                      placeholder="Enter data"
+                      className="form-control"
+                    />
+                  </td>
                 </tr>
               </tbody>
             </Table>
           </div>
         )}
-        {(formData.standard === '21' ||
-          formData.standard === '43' ||
-          formData.standard === '8' ||
-          formData.standard === '22') && (
+        {(formData.standard === 'ISO 9001:2015' ||
+          formData.standard === 'ISO 14001:2015' ||
+          formData.standard === 'ISO 50001:2018' ||
+          formData.standard === 'ISO 27001 : 2013' ||
+          formData.standard === ' ISO 45001:2018') && (
           <div className="w-full mt-4">
             <h2 className="font-bold text-black text-xl dark:text-white mr-2 mt-3 mb-3">
               Select EA/IAF Codes and Risk Category
@@ -1398,7 +1644,7 @@ const BiodataInfo = () => {
               {/* Add flex container */}
               <div className="flex flex-col w-1/2 pr-2">
                 <label
-                  htmlFor="applyFor"
+                  htmlFor="efCodes"
                   className="font-medium text-black dark:text-white mb-1"
                 >
                   EA/IAF Codes
@@ -1428,7 +1674,7 @@ const BiodataInfo = () => {
               </div>
               <div className="flex flex-col w-1/2 pl-2">
                 <label
-                  htmlFor="applyFor"
+                  htmlFor="riskCategory"
                   className="font-medium text-black dark:text-white mb-1"
                 >
                   Risk Category
@@ -1440,332 +1686,313 @@ const BiodataInfo = () => {
                   className="mt-2"
                 >
                   <option>Select</option>
-                  <option value="Technical Area">Technical Area</option>
+
                   {/* Add more options */}
                 </Form.Select>
               </div>
             </div>
 
-            {formData.riskCategory === 'Technical Area' &&
-              formData.standard === '21' && (
-                <div className="mt-4">
-                  <h2 className="font-bold text-black text-xl dark:text-white mr-2 mt-3 mb-3">
-                    Technical Area
-                  </h2>
-                  <Table striped bordered hover>
-                    <thead>
-                      <tr>
-                        <th>IAF/EA Code(s)</th>
-                        <th>IAF/EA Code(s) Part Wise</th>
-                        <th>EMS-Risk</th>
-                        <th>Key Processes/Activities</th>
-                        <th>Sector Specific environmental aspects</th>
-                        <th>Sector Specific operational control</th>
-                        <th>Sector Specific environmental legal</th>
-                        <th>Applicable legal & statutory requirements</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td> </td>
-                        <td> </td>
-                        <td> </td>
-                        <td> </td>
-                        <td> </td>
-                        <td> </td>
-                        <td> </td>
-                      </tr>
-                    </tbody>
-                  </Table>
-                </div>
-              )}
+            {formData.standard === 'ISO 9001:2015' && (
+              <div className="mt-4">
+                <h2 className="font-bold text-black text-xl dark:text-white mr-2 mt-3 mb-3">
+                  Select Technical Area
+                </h2>
+                <Table striped bordered hover>
+                  <thead>
+                    <tr>
+                      <th>IAF/EA Code(s)</th>
+                      <th>NACE Rev2</th>
+                      <th>QMS-Risk</th>
+                      <th>Key Process involved</th>
+                      <th>Quality Control</th>
+                      <th>Product Requirement</th>
+                      <th>Applicable legal & statutory requirements</th>
+                      <th> Link with Question Bank (Google Form)</th>
+                      <th>Upload the Answer-sheet</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td></td>
+                      <td></td>
+                      <td>
+                        <input
+                          type="text"
+                          placeholder="Enter data"
+                          className="form-control"
+                        />
+                      </td>
+                      <td>
+                        <input
+                          type="text"
+                          placeholder="Enter data"
+                          className="form-control"
+                        />
+                      </td>
+                      <td>
+                        <input
+                          type="text"
+                          placeholder="Enter data"
+                          className="form-control"
+                        />
+                      </td>
+                      <td>
+                        <input
+                          type="text"
+                          placeholder="Enter data"
+                          className="form-control"
+                        />
+                      </td>
+                      <td>
+                        <input
+                          type="text"
+                          placeholder="Enter data"
+                          className="form-control"
+                        />
+                      </td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                  </tbody>
+                </Table>
+              </div>
+            )}
 
-            {formData.riskCategory === 'Technical Area' &&
-              formData.standard === '22' && (
-                <div className="mt-4">
-                  <h2 className="font-bold text-black text-xl dark:text-white mr-2 mt-3 mb-3">
-                    Technical Area
-                  </h2>
-                  <Table striped bordered hover>
-                    <thead>
-                      <tr>
-                        <th>IAF/EA Code(s)</th>
-                        <th>IAF/EA Code(s) Part Wise</th>
-                        <th>OHS-Risk</th>
-                        <th>Key Processes/Activities/Services involved</th>
-                        <th>Sector Specific related hazards</th>
-                        <th>Sector Specific potential emergencies</th>
-                        <th>Sector Specific workplace monitoring</th>
-                        <th>Sector Specific OH&S Legal & Others</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td> </td>
-                        <td> </td>
-                        <td> </td>
-                        <td> </td>
-                        <td> </td>
-                        <td> </td>
-                        <td> </td>
-                        <td> </td>
-                      </tr>
-                    </tbody>
-                  </Table>
-                </div>
-              )}
+            {formData.standard === 'ISO 14001:2015' && (
+              <div className="mt-4">
+                <h2 className="font-bold text-black text-xl dark:text-white mr-2 mt-3 mb-3">
+                  Technical Area
+                </h2>
+                <Table striped bordered hover>
+                  <thead>
+                    <tr>
+                      <th>IAF/EA Code(s)</th>
+                      <th>IAF/EA Code(s) Part Wise</th>
+                      <th>EMS-Risk</th>
+                      <th>Key Processes/Activities</th>
+                      <th>Sector Specific environmental aspects</th>
+                      <th>Sector Specific operational control</th>
+                      <th>Sector Specific environmental legal</th>
+                      <th>Applicable legal & statutory requirements</th>
+                      <th> Link with Question Bank (Google Form)</th>
+                      <th>Submit the Answer-sheet</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td> </td>
+                      <td> </td>
+                      <td>
+                        <input
+                          type="text"
+                          placeholder="Enter data"
+                          className="form-control"
+                        />
+                      </td>{' '}
+                      <td>
+                        <input
+                          type="text"
+                          placeholder="Enter data"
+                          className="form-control"
+                        />
+                      </td>{' '}
+                      <td>
+                        <input
+                          type="text"
+                          placeholder="Enter data"
+                          className="form-control"
+                        />
+                      </td>{' '}
+                      <td>
+                        <input
+                          type="text"
+                          placeholder="Enter data"
+                          className="form-control"
+                        />
+                      </td>{' '}
+                      <td>
+                        <input
+                          type="text"
+                          placeholder="Enter data"
+                          className="form-control"
+                        />
+                      </td>{' '}
+                      <td>
+                        <input
+                          type="text"
+                          placeholder="Enter data"
+                          className="form-control"
+                        />
+                      </td>
+                      <td>
+                        <input
+                          type="text"
+                          placeholder="Enter data"
+                          className="form-control"
+                        />
+                      </td>{' '}
+                      <td>
+                        <input
+                          type="text"
+                          placeholder="Enter data"
+                          className="form-control"
+                        />
+                      </td>
+                    </tr>
+                  </tbody>
+                </Table>
+              </div>
+            )}
 
-            {formData.riskCategory === 'Technical Area' &&
-              formData.standard === '43' && (
-                <div className="mt-4">
-                  <h2 className="font-bold text-black text-xl dark:text-white mr-2 mt-3 mb-3">
-                    Technical Area
-                  </h2>
-                  <Table striped bordered hover>
-                    <thead>
-                      <tr>
-                        <th>Master Technical Area for EnMS</th>
-                        <th>Energy Related Experience</th>
-                        <th>Reflect the relevant Question Bank</th>
-                        <th>Submit the Answersheets</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>
-                          <select>
-                            <option value="">Drop Down for Selection</option>
-                            <option value="MTA1">Main Technical Area 1</option>
-                            <option value="MTA2">Main Technical Area 2</option>
-                          </select>
-                        </td>
-                        <td> </td>
-                        <td> </td>
-                        <td> </td>
-                      </tr>
-                    </tbody>
-                  </Table>
-                </div>
-              )}
+            {formData.standard === ' ISO 45001:2018' && (
+              <div className="mt-4">
+                <h2 className="font-bold text-black text-xl dark:text-white mr-2 mt-3 mb-3">
+                  Technical Area
+                </h2>
+                <Table striped bordered hover>
+                  <thead>
+                    <tr>
+                      <th>IAF/EA Code(s)</th>
+                      <th>IAF/EA Code(s) Part Wise</th>
+                      <th>OHS-Risk</th>
+                      <th>Key Processes/Activities/Services involved</th>
+                      <th>Sector Specific related hazards</th>
+                      <th>Sector Specific potential emergencies</th>
+                      <th>Sector Specific workplace monitoring</th>
+                      <th>Sector Specific OH&S Legal & Others</th>
+                      <th> Link with Question Bank (Google Form)</th>
+                      <th>Upload the Answer-sheet</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td> </td>
+                      <td> </td>
+                      <td> </td>
+                      <td>
+                        <input
+                          type="text"
+                          placeholder="Enter data"
+                          className="form-control"
+                        />
+                      </td>
+                      <td>
+                        <input
+                          type="text"
+                          placeholder="Enter data"
+                          className="form-control"
+                        />
+                      </td>
+                      <td>
+                        <input
+                          type="text"
+                          placeholder="Enter data"
+                          className="form-control"
+                        />
+                      </td>
+                      <td>
+                        <input
+                          type="text"
+                          placeholder="Enter data"
+                          className="form-control"
+                        />
+                      </td>
+                      <td>
+                        <input
+                          type="text"
+                          placeholder="Enter data"
+                          className="form-control"
+                        />
+                      </td>
+                      <td> </td>
+                      <td> </td>
+                    </tr>
+                  </tbody>
+                </Table>
+              </div>
+            )}
 
-            {formData.riskCategory === 'Technical Area' &&
-              formData.standard === '8' && (
-                <div className="mt-4">
-                  <h2 className="font-bold text-black text-xl dark:text-white mr-2 mt-3 mb-3">
-                    Technical Area
-                  </h2>
-                  <Table striped bordered hover>
-                    <thead>
-                      <tr>
-                        <th>Sectors</th>
-                        <th>IAF / EA Code(s)</th>
-                        <th>IT related Experience</th>
-                        <th>Link with Question Bank (Google Form)</th>
-                        <th>Submit the Answersheets</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>
-                          <select>
-                            <option value="">Select Details</option>
-                            <option value="Detail1">Detail 1</option>
-                            <option value="Detail2">Detail 2</option>
-                            <option value="Detail3">Detail 3</option>
-                          </select>
-                        </td>{' '}
-                        <td>
-                          <select>
-                            <option value="">Select Details</option>
-                            <option value="Detail1">Detail 1</option>
-                            <option value="Detail2">Detail 2</option>
-                            <option value="Detail3">Detail 3</option>
-                          </select>
-                        </td>
-                        <td> </td>
-                        <td> </td>
-                        <td> </td>
-                      </tr>
-                    </tbody>
-                  </Table>
-                </div>
-              )}
+            {formData.standard === 'ISO 50001:2018' && (
+              <div className="mt-4">
+                <h2 className="font-bold text-black text-xl dark:text-white mr-2 mt-3 mb-3">
+                  Technical Area
+                </h2>
+                <Table striped bordered hover>
+                  <thead>
+                    <tr>
+                      <th>Master Technical Area for EnMS</th>
+                      <th>Energy Related Experience</th>
+                      <th>Reflect the relevant Question Bank</th>
+                      <th>Submit the Answersheets</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <select>
+                          <option value="">Drop Down for Selection</option>
+                          <option value="MTA1">Main Technical Area 1</option>
+                          <option value="MTA2">Main Technical Area 2</option>
+                        </select>
+                      </td>
+                      <td> </td>
+                      <td> </td>
+                      <td> </td>
+                    </tr>
+                  </tbody>
+                </Table>
+              </div>
+            )}
+
+            {formData.standard === 'ISO 27001 : 2013' && (
+              <div className="mt-4">
+                <h2 className="font-bold text-black text-xl dark:text-white mr-2 mt-3 mb-3">
+                  Technical Area
+                </h2>
+                <Table striped bordered hover>
+                  <thead>
+                    <tr>
+                      <th>Sectors</th>
+                      <th>IAF / EA Code(s)</th>
+                      <th>IT related Experience</th>
+                      <th>Link with Question Bank (Google Form)</th>
+                      <th>Submit the Answersheets</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <select>
+                          <option value="">Select Details</option>
+                          <option value="Detail1">Detail 1</option>
+                          <option value="Detail2">Detail 2</option>
+                          <option value="Detail3">Detail 3</option>
+                        </select>
+                      </td>{' '}
+                      <td>
+                        <select>
+                          <option value="">Select Details</option>
+                          <option value="Detail1">Detail 1</option>
+                          <option value="Detail2">Detail 2</option>
+                          <option value="Detail3">Detail 3</option>
+                        </select>
+                      </td>
+                      <td>
+                        <input
+                          type="text"
+                          placeholder="Enter data"
+                          className="form-control"
+                        />
+                      </td>
+                      <td> </td>
+                      <td> </td>
+                    </tr>
+                  </tbody>
+                </Table>
+              </div>
+            )}
           </div>
         )}
-        {/* <h2 className="font-bold text-black text-xl dark:text-white mr-2 mt-3 mb-3">
-          Select EA/IAF Codes and Risk Category
-        </h2> */}
-        {/* <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4 mt-3"> */}
-        {/* Field: Apply For */}
-        {/* <div className="flex flex-col">
-            <label
-              htmlFor="applyFor"
-              className="font-medium text-black dark:text-white mb-1"
-            >
-              EA/IAF Codes
-            </label>
-            <Form.Select aria-label="Select Application Type" className="mt-2">
-              <option>Select</option>
-              <option value="PDF">01(Agriculture & Fishing & Forestry)</option>
-              <option value="PDF">02(Mining & Quarrying)</option>
-              <option value="PDF">03(Food products , beverages and tobacco)</option>
-              <option value="PDF">08(Publishing Companies)</option>
-              <option value="PDF">09(Printing Companies)</option>
-              <option value="PDF">18(Machienry and equipments)</option>
-              <option value="PDF">19(Electrical and optical equipment)</option>
-              <option value="PDF">20(Shipbuilding)</option>
-              <option value="PDF">09(Aerospace)</option>
-              <option value="PDF">09(Other transport equipment)</option>
-            </Form.Select>
-          </div> */}
-        {/* <div className="flex flex-col">
-            <label
-              htmlFor="applyFor"
-              className="font-medium text-black dark:text-white mb-1"
-            >
-              Risk Category
-            </label>
-            <Form.Select aria-label="Select Application Type" className="mt-2">
-              <option>Select</option>
-            </Form.Select>
-          </div>
-        </div> */}
-        {/* <h2 className="font-bold text-black text-xl dark:text-white mr-2 mt-3 mb-3">
-          Select Nacecodes
-        </h2> */}
-        {/* <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4 mt-3"> */}
-        {/* <div className="flex flex-col">
-            <label
-              htmlFor="applyFor"
-              className="font-medium text-black dark:text-white mb-1"
-            >
-              Select Nacecodes(Rev1)
-            </label>
-            <Form.Select aria-label="Select Application Type" className="mt-2">
-              <option>Select</option>
-              <option value="PDF">E 40.11(Production of electricity)</option>
-              <option value="Word">O 93.01(Washing and dry cleaning of textile and fur products)</option>
-              <option value="Excel">O 93.02(Hair dressing and other beauty treatment)</option>
-              <option value="Excel">O 93.03(Funeral and related activities)</option>
-              <option value="Excel">O 93.04(Physical and well-being activities)</option>
-              <option value="Excel">O 93.05(Other services activities n.e.c)</option>
-              <option value="Excel">K 72.10(hardware Consultancy)</option>
-              <option value="Excel">K 72.21(Publishing of software)</option>
-              <option value="Excel">K 72.22(Other software consultancy and supply)</option>
-              <option value="Excel">K 72.3(Data processing)</option>
-              <option value="Excel">K 72.4(Database activities)</option>
-            </Form.Select>
-          </div> */}
-        {/* <div className="flex flex-col">
-      <label
-        htmlFor="applyFor"
-        className="font-medium text-black dark:text-white mb-1"
-      >
-        Select Nacecodes (Rev2)
-      </label> */}
-        {/* <Form.Select
-        aria-label="Select Application Type"
-        className="mt-2"
-        onChange={handleSelectChange}
-      >
-        <option value="">Select</option>
-        <option value="Technical Area">Technical Area</option>
-        <option value="PDF">81.22 (Other building and industrial cleaning activities)</option>
-        <option value="Word">81.29 (Other cleaning activities)</option>
-        <option value="Excel">81.3 (Landscape service activities)</option>
-        <option value="Excel">82.11 (Combined administrative services activities)</option>
-        <option value="Excel">82.19 (Photocopying, document preparation, and other specialized office support activities)</option>
-        <option value="Excel">82.2 (Activities of call centers)</option>
-        <option value="Excel">82.3 (Organizations of conventions and trade shows)</option>
-        <option value="Excel">82.91 (Activities of collection agencies and credit bureaus)</option>
-        <option value="Excel">82.92 (Packaging activities)</option>
-        <option value="Excel">82.99 (Other business support service activities n.e.c)</option>
-       
-      </Form.Select> */}
-        {/* Conditionally render the table when "Technical Area" is selected */}
-        {/* {selectedOption === 'Technical Area' && (
-        <div className="mt-4">
-          <Table striped bordered hover>
-            <thead>
-              <tr>
-                <th>IAF/EA Code(s)</th>
-                <th>NACE Rev2</th>
-                <th>QMS-Risk</th>
-                <th>Key Process involved</th>
-                <th>Quality Control</th>
-                <th>Product Requirement</th>
-                <th>Applicable legal & statutory requirements</th>
-              
-              </tr>
-            </thead>
-           
-          </Table>
-        </div>
-      )}
-    </div>
-        </div> */}
-        {/* <h2 className="font-bold text-black text-xl dark:text-white mr-2 mt-3 mb-3">
-          Select Category / Sub-Category Codes
-        </h2> */}
-        {/* <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4 mt-3">
-          <div className="flex flex-col">
-            <label
-              htmlFor="applyFor"
-              className="font-medium text-black dark:text-white mb-1"
-            >
-              Category
-            </label>
-            <Form.Select aria-label="Select Application Type" className="mt-2">
-              <option>Select</option>
-              <option>Technical Area</option>
-              <option>D(Processing 2(Perishable vegetal products))</option>
-              <option>
-                E(Processing 3(Product with long shelf life at ambient
-                temperature))
-              </option>
-              <option>
-                C(Processing 1(Perishable animal products)including all
-                activities after farming e.g. slaughtering)
-              </option>
-              <option>F(Feed Production)</option>
-              <option>G(Catering)</option>
-              <option>H(Distribution)</option>
-              <option>I(Services)</option>
-              <option>J(Transport and storage)</option>
-              <option>K(Production of (Bio) Chemicals)</option>
-              <option>L((Bio)chemical manufacturing)</option>
-              <option>M(Packaging material manufacturing)</option>
-              <option>Ayurvedic(Ayurvedic)</option>
-
-              
-            </Form.Select>
-            {/* {selectedOption === 'Technical Area' && (
-              <Table striped bordered hover className="mt-4">
-                <thead>
-                  <tr>
-                    <th>Cluster</th>
-                    <th>Categories</th>
-                    <th>Subcategory</th>
-                    <th>IRQS Subcategory</th>
-                    <th>Risk</th>
-                  </tr>
-                </thead>
-                
-              </Table>
-            )} 
-          </div>*/}
-        {/* <div className="flex flex-col">
-            <label
-              htmlFor="applyFor"
-              className="font-medium text-black dark:text-white mb-1"
-            >
-              Sub Category
-            </label>
-            <Form.Select aria-label="Select Application Type" className="mt-2">
-              <option>Select</option>
-            </Form.Select>
-          </div> 
-        </div> */}
         {/* Buttons */}
         <div className="flex flex-row justify-end items-end mt-4 space-x-2">
           <button
@@ -1781,103 +2008,7 @@ const BiodataInfo = () => {
             Save Changes
           </button>
         </div>
-        <div>
-          {/* <h2 className="font-bold text-black text-xl dark:text-white mr-2 mt-3 mb-3">
-          General knowledge about ISO 14001
-        </h2>
-        <div>
-        <div className="flex flex-col">
-            <label
-              htmlFor="emailId"
-              className="font-medium text-black dark:text-white mb-1"
-            >
-              The Environmental Technology Used
-            </label>
-            <Form.Control
-              id=""
-              type=""
-              className="border rounded-lg"
-              aria-label=""
-              placeholder="Enter"
-            />
-          </div>
-          <div className="flex flex-col">
-            <label
-              htmlFor="emailId"
-              className="font-medium text-black dark:text-white mb-1"
-            >
-              About technniques involved for Evaluation of environmental aspect & imapct & theri significance
-            </label>
-            <Form.Control
-              id=""
-              type=""
-              className="border rounded-lg"
-              aria-label=""
-              placeholder="Enter"
-            />
-          </div>
-          <div className="flex flex-col">
-            <label
-              htmlFor="emailId"
-              className="font-medium text-black dark:text-white mb-1"
-            >
-              Knowledge of Environmental Emergencies preparedness & response. Mitigation associated with adverse Environmental impact
-            </label>
-            <Form.Control
-              id=""
-              type=""
-              className="border rounded-lg"
-              aria-label=""
-              placeholder="Enter"
-            />
-          </div>
-          <div className="flex flex-col">
-            <label
-              htmlFor="emailId"
-              className="font-medium text-black dark:text-white mb-1"
-            >
-              Knowledge of operational control with respect to
-            </label>
-            <Form.Control
-              id=""
-              type=""
-              className="border rounded-lg"
-              aria-label=""
-              placeholder="Enter"
-            />
-          </div>
-          <div className="flex flex-col">
-            <label
-              htmlFor="emailId"
-              className="font-medium text-black dark:text-white mb-1"
-            >
-             For factors related to Geography,Climate,Hydrogeology,Topography,soil condition resulting in potential environmental impacts
-            </label>
-            <Form.Control
-              id=""
-              type=""
-              className="border rounded-lg"
-              aria-label=""
-              placeholder="Enter"
-            />
-          </div>
-          <div className="flex flex-col">
-            <label
-              htmlFor="emailId"
-              className="font-medium text-black dark:text-white mb-1"
-            >
-            During Design stage: Approach/concept of application related environmental aspect/impact/life cycle
-            </label>
-            <Form.Control
-              id=""
-              type=""
-              className="border rounded-lg"
-              aria-label=""
-              placeholder="Enter"
-            />
-          </div>
-          </div> */}
-        </div>
+        <div></div>
       </form>
     </>
   );
