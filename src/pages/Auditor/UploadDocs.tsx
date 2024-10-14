@@ -23,6 +23,12 @@ const UploadDocs = () => {
     setSelectedFiles(updatedFiles);
   };
 
+  const handleViewFile = (file) => {
+    // Create a URL for the file and open it in a new tab
+    const fileURL = URL.createObjectURL(file);
+    window.open(fileURL, '_blank');
+  };
+
   return (
     <>
       <h1 className="text-2xl font-bold text-black mb-4">
@@ -30,7 +36,7 @@ const UploadDocs = () => {
       </h1>
       <div className="text-l font-bold text-black mb-2">Upload Document</div>
       <hr className="mb-3 font-bold border border-black" />
-      <Form className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4 ">
+      <Form className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4">
         <Form.Group className="mb-3 lg:col-span-2" controlId="fileType">
           {/* 2 columns for File Type */}
           <Form.Label>File Type</Form.Label>
@@ -90,6 +96,7 @@ const UploadDocs = () => {
                   <Button
                     className="bg-success text-white  border px-4  rounded-md shadow-md"
                     size="sm"
+                    onClick={() => handleViewFile(fileData.file)}
                   >
                     View
                   </Button>
