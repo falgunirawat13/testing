@@ -455,6 +455,10 @@ const Upgradation3 = () => {
             placeholder="Remarks"
           ></textarea>
         </div>
+
+        <h4 className="font-bold text-black dark:text-white mb-1">
+          Send Upgradation Letter
+        </h4>
       </div>
 
       {/* Close and Submit Buttons */}

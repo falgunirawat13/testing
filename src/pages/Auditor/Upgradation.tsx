@@ -36,7 +36,7 @@ const Upgradation = () => {
   return (
     <>
       <h1 className="text-2xl font-bold text-black mb-4">
-        Review and Approval of Upgradation/Enhancement
+        Request for Auditor Upgradation/Enhancement
       </h1>
 
       {/* Search Bar */}

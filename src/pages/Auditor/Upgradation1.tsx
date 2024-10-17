@@ -74,17 +74,17 @@ const Upgradation1 = () => {
         {/* Field: Apply For */}
         <div className="flex flex-col">
           <label className="font-medium text-black dark:text-white mb-1">
-            Apply For
+            Request For
           </label>
           <Form.Control
             as="select"
             value={applyFor}
             onChange={(e) => setApplyFor(e.target.value)}
           >
-            <option value="">Apply For</option>
-            <option value="Application 1">Application 1</option>
-            <option value="Application 2">Application 2</option>
-            <option value="Application 3">Application 3</option>
+            <option value="">Please Select</option>
+            <option value="Application 1">Grade Upgrade</option>
+            <option value="Application 2">Enhancement</option>
+            <option value="Application 3">Revision in Risk</option>
           </Form.Control>
         </div>
 
@@ -110,22 +110,136 @@ const Upgradation1 = () => {
         {/* Field: Upgrade/Enhancement To */}
         <div className="flex flex-col">
           <label className="font-medium text-black dark:text-white mb-1">
-            Upgrade/Enhancement To
+            Upgrade To
           </label>
           <Form.Control
             as="select"
             value={upgradeTo}
             onChange={(e) => setUpgradeTo(e.target.value)}
           >
-            <option value="">Upgrade/Enhancement To</option>
-            <option value="Enhancement 1">Enhancement 1</option>
-            <option value="Enhancement 2">Enhancement 2</option>
-            <option value="Enhancement 3">Enhancement 3</option>
+            <option value="">Please Select</option>
+            <option value="Enhancement 1">Auditor</option>
+            <option value="Enhancement 2">
+              Auditor/Provisional Team Leader
+            </option>
+            <option value="Enhancement 3">Team Leader</option>
+            <option value="Enhancement 4">Industry Expert</option>
+            <option value="Enhancement 5">N/A</option>
+            <option value="Enhancement 6">
+              Provisional Auditor/Industry Expert
+            </option>
+            <option value="Enhancement 7">Provisional Team Leader</option>
+            <option value="Enhancement 8">Process Tecnical Expert</option>
           </Form.Control>
         </div>
       </div>
 
-      <div className="text-xl font-bold text-black mb-2">Upload Document</div>
+      <div className="text-xl font-bold text-black mb-3">History Record </div>
+      <Table responsive="md" hover bordered className="table-striped">
+        <thead className="bg-light">
+          <tr>
+            <th
+              className="p-3 text-center align-middle"
+              style={{ width: '100px' }}
+            >
+              Name of the Client
+            </th>
+            <th
+              className="p-3 text-center align-middle"
+              style={{ width: '100px' }}
+            >
+              Audit Date
+            </th>
+            <th
+              className="p-3 text-center align-middle"
+              style={{ width: '100px' }}
+            >
+              No. of Mandays
+            </th>
+            <th
+              className="p-3 text-center align-middle"
+              style={{ width: '100px' }}
+            >
+              Scheme
+            </th>
+            <th
+              className="p-3 text-center align-middle"
+              style={{ width: '100px' }}
+            >
+              Name of the Evaluator
+            </th>
+            <th
+              className="p-3 text-center align-middle"
+              style={{ width: '100px' }}
+            >
+              Audit Logs
+            </th>
+            <th
+              className="p-3 text-center align-middle"
+              style={{ width: '100px' }}
+            >
+              Evaluation Report
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <input
+                type="text"
+                placeholder="Enter data"
+                className="form-control"
+              />
+            </td>
+            <td>
+              <input
+                type="text"
+                placeholder="Enter data"
+                className="form-control"
+              />
+            </td>
+            <td>
+              <input
+                type="text"
+                placeholder="Enter data"
+                className="form-control"
+              />
+            </td>
+            <td>
+              <input
+                type="text"
+                placeholder="Enter data"
+                className="form-control"
+              />
+            </td>
+            <td>
+              <input
+                type="text"
+                placeholder="Enter data"
+                className="form-control"
+              />
+            </td>
+            <td>
+              <input
+                type="text"
+                placeholder="Enter data"
+                className="form-control"
+              />
+            </td>
+            <td>
+              <input
+                type="text"
+                placeholder="Enter data"
+                className="form-control"
+              />
+            </td>
+          </tr>
+        </tbody>
+      </Table>
+
+      <div className="text-xl font-bold text-black mb-2 mt-10">
+        Upload Document
+      </div>
       <hr className="mb-3 font-bold border border-black" />
       <Form className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4 ">
         <Form.Group className="mb-3 lg:col-span-2" controlId="fileType">
