@@ -60,6 +60,9 @@ import Upgradation2 from './pages/Auditor/Upgradation2';
 import Upgradation3 from './pages/Auditor/Upgradation3';
 import Upgradation4 from './pages/Auditor/Upgradation4';
 import Upgradation5 from './pages/Auditor/Upgradation5';
+import Enhancement1 from './pages/Auditor/Enhancement1';
+import Enhancement2 from './pages/Auditor/Enhancement2';
+import Enhancement3 from './pages/Auditor/Enhancement3';
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
   const { pathname } = useLocation();
@@ -625,6 +628,37 @@ function App() {
               <PageTitle title="Validation | TailAdmin - Tailwind CSS Admin Dashboard Template" />
 
               <Upgradation5 />
+            </>
+          }
+        />
+
+        <Route
+          path="/Enhancement1"
+          element={
+            <>
+              <PageTitle title="Validation | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+
+              <Enhancement1 />
+            </>
+          }
+        />
+        <Route
+          path="/Enhancement2"
+          element={
+            <>
+              <PageTitle title="Validation | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+
+              <Enhancement2 />
+            </>
+          }
+        />
+        <Route
+          path="/Enhancement3"
+          element={
+            <>
+              <PageTitle title="Validation | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+
+              <Enhancement3 />
             </>
           }
         />

@@ -2,10 +2,22 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Button, Form, Table } from 'react-bootstrap';
 
-const Upgradation1 = () => {
+const Enhancement1 = () => {
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [fileType, setFileType] = useState('');
   const [file, setFile] = useState(null);
+
+  const eafIafData = [
+    { standard: 'ISO 45001:2018', role: 'Provisional Auditor' },
+    { standard: 'ISO 45001:2018', role: 'Provisional Auditor' },
+    { standard: 'ISO 45001:2018', role: 'Provisional Auditor' },
+  ];
+
+  const naceCodeData = [
+    { naceRev1: 'A01', naceRev2: 'B02' },
+    { naceRev1: 'C03', naceRev2: 'D04' },
+    { naceRev1: 'E05', naceRev2: 'F06' },
+  ];
 
   // States for dropdowns
   const [auditor, setAuditor] = useState('');
@@ -51,7 +63,7 @@ const Upgradation1 = () => {
   return (
     <>
       <h1 className="text-2xl font-bold text-black mb-4">
-        Upgrade Request Information
+        Request for Enhancement Of Scheme(Auditor)
       </h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-3 mb-5">
         {/* Field: Select Auditor */}
@@ -83,7 +95,7 @@ const Upgradation1 = () => {
           >
             <option value="">Please Select</option>
             <option value="Application 1">Grade Upgrade</option>
-            <option value="Application 2">Enhancement</option>
+            <option value="Application 2">Enhancement of Scheme</option>
             <option value="Application 3">Revision in Risk</option>
           </Form.Control>
         </div>
@@ -110,7 +122,7 @@ const Upgradation1 = () => {
         {/* Field: Upgrade/Enhancement To */}
         <div className="flex flex-col">
           <label className="font-medium text-black dark:text-white mb-1">
-            Upgrade To
+            Enhancement To
           </label>
           <Form.Control
             as="select"
@@ -134,109 +146,6 @@ const Upgradation1 = () => {
         </div>
       </div>
 
-      <div className="text-xl font-bold text-black mb-3">History Record </div>
-      <Table responsive="md" hover bordered className="table-striped">
-        <thead className="bg-light">
-          <tr>
-            <th
-              className="p-3 text-center align-middle"
-              style={{ width: '100px' }}
-            >
-              Name of the Client
-            </th>
-            <th
-              className="p-3 text-center align-middle"
-              style={{ width: '100px' }}
-            >
-              Audit Date
-            </th>
-            <th
-              className="p-3 text-center align-middle"
-              style={{ width: '100px' }}
-            >
-              No. of Mandays
-            </th>
-            <th
-              className="p-3 text-center align-middle"
-              style={{ width: '100px' }}
-            >
-              Scheme
-            </th>
-            <th
-              className="p-3 text-center align-middle"
-              style={{ width: '100px' }}
-            >
-              Name of the Evaluator
-            </th>
-            <th
-              className="p-3 text-center align-middle"
-              style={{ width: '100px' }}
-            >
-              Audit Logs
-            </th>
-            <th
-              className="p-3 text-center align-middle"
-              style={{ width: '100px' }}
-            >
-              Evaluation Report
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>
-              <input
-                type="text"
-                placeholder="Enter data"
-                className="form-control"
-              />
-            </td>
-            <td>
-              <input
-                type="text"
-                placeholder="Enter data"
-                className="form-control"
-              />
-            </td>
-            <td>
-              <input
-                type="text"
-                placeholder="Enter data"
-                className="form-control"
-              />
-            </td>
-            <td>
-              <input
-                type="text"
-                placeholder="Enter data"
-                className="form-control"
-              />
-            </td>
-            <td>
-              <input
-                type="text"
-                placeholder="Enter data"
-                className="form-control"
-              />
-            </td>
-            <td>
-              <input
-                type="text"
-                placeholder="Enter data"
-                className="form-control"
-              />
-            </td>
-            <td>
-              <input
-                type="text"
-                placeholder="Enter data"
-                className="form-control"
-              />
-            </td>
-          </tr>
-        </tbody>
-      </Table>
-
       <div className="text-xl font-bold text-black mb-2 mt-10">
         Upload Document
       </div>
@@ -251,14 +160,13 @@ const Upgradation1 = () => {
             onChange={(e) => setFileType(e.target.value)}
           >
             <option value="">Select File Type</option>
-            <option value="Declaration of Confidentiality">
-              Declaration of Confidentiality
-            </option>
+            <option value="Declaration of Confidentiality">Updated CV</option>
             <option value="Declaration of Impartiality, Conflict of Interest and Integrity">
-              Declaration of Impartiality, Conflict of Interest and Integrity
+              Lead Auditor Certificate
             </option>
-            <option value="Contract Agreement">Contract Agreement</option>
-            <option value="Empanelment Letter">Empanelment Letter</option>
+            <option value="Contract Agreement">
+              Audit Logs/List of Audits Completed
+            </option>
           </Form.Control>
         </Form.Group>
 
@@ -325,7 +233,7 @@ const Upgradation1 = () => {
       </Table>
 
       <div className="text-xl font-bold text-black mb-1 mt-4">
-        Upgradation Remarks
+        Enhancement of Scheme Remarks
       </div>
       <div className="flex flex-col mb-4 mt-2">
         <textarea
@@ -336,6 +244,45 @@ const Upgradation1 = () => {
         ></textarea>
       </div>
 
+      <div className="text-xl font-bold text-black mb-3 mt-4">
+        Standard-wise Auditor Roles
+      </div>
+      <Table bordered responsive="sm">
+        <thead>
+          <tr>
+            <th>Standard</th>
+            <th>Roles</th>
+          </tr>
+        </thead>
+        <tbody>
+          {eafIafData.map((item, index) => (
+            <tr key={index}>
+              <td>{item.standard}</td>
+              <td>{item.role}</td>
+            </tr>
+          ))}
+        </tbody>
+      </Table>
+
+      <div className="text-xl font-bold text-black mb-3 mt-4">
+        Existing NaceCodes
+      </div>
+      <Table bordered responsive="sm">
+        <thead>
+          <tr>
+            <th>NaceCode (Rev 1)</th>
+            <th>NaceCode (Rev 2)</th>
+          </tr>
+        </thead>
+        <tbody>
+          {naceCodeData.map((item, index) => (
+            <tr key={index}>
+              <td>{item.naceRev1}</td>
+              <td>{item.naceRev2}</td>
+            </tr>
+          ))}
+        </tbody>
+      </Table>
       <div className="flex justify-end space-x-4 p-4">
         <Button
           className="bg-black text-white px-6 py-2 rounded-md shadow-md"
@@ -354,4 +301,4 @@ const Upgradation1 = () => {
   );
 };
 
-export default Upgradation1;
+export default Enhancement1;

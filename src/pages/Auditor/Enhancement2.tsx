@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Table, Form, Button } from 'react-bootstrap';
 import { MdDelete, MdOutlineEdit } from 'react-icons/md';
 
-const Upgradation2 = () => {
+const Enhancement2 = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [tableData, setTableData] = useState([
     {
@@ -36,7 +36,8 @@ const Upgradation2 = () => {
   return (
     <>
       <h1 className="text-2xl font-bold text-black mb-4">
-        Request for Auditor Upgradation(Accreditation Controller Panel)
+        Review and Approval for Enhancement of Scheme(Accreditation Controller
+        Panel)
       </h1>
 
       {/* Search Bar */}
@@ -57,7 +58,7 @@ const Upgradation2 = () => {
                 className="p-3 text-center align-middle"
                 style={{ width: '100px' }}
               >
-                Reg. No.
+                Registration No.
               </th>
               <th
                 className="p-3 text-center align-middle"
@@ -75,13 +76,25 @@ const Upgradation2 = () => {
                 className="p-3 text-center align-middle"
                 style={{ width: '100px' }}
               >
+                Request for Enhancement Of Scheme
+              </th>
+              <th
+                className="p-3 text-center align-middle"
+                style={{ width: '100px' }}
+              >
+                Role for Enhancement Of Scheme
+              </th>
+              <th
+                className="p-3 text-center align-middle"
+                style={{ width: '100px' }}
+              >
                 Scheme
               </th>
               <th
                 className="p-3 text-center align-middle"
                 style={{ width: '100px' }}
               >
-                Upgarde To
+                Zone
               </th>
               <th
                 className="p-3 text-center align-middle"
@@ -135,6 +148,12 @@ const Upgradation2 = () => {
                     {item.status}
                   </td>
                   <td className="p-3 align-middle text-center">
+                    {item.status}
+                  </td>
+                  <td className="p-3 align-middle text-center">
+                    {item.status}
+                  </td>
+                  <td className="p-3 align-middle text-center">
                     {item.submittedDate}
                   </td>
                   <td className="p-3 align-middle text-center">
@@ -170,4 +189,4 @@ const Upgradation2 = () => {
   );
 };
 
-export default Upgradation2;
+export default Enhancement2;
